@@ -1,0 +1,175 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import { education } from '../../data/education';
+---
+
+<section id="education" class="education" aria-labelledby="education-title" tabindex="-1">
+  <div class="container">
+    <SectionHeading
+      number="02"
+      title="Education"
+      id="education-title"
+      kicker="Placeholder: a short line about how you learn."
+    />
+
+    <ol role="list" class="timeline">
+      {
+        education.map((entry, i) => (
+          <li class="entry" data-reveal style={`--reveal-delay: ${i * 100}ms`}>
+            <p class="entry__period mono">
+              {entry.period}
+              {entry.current && (
+                <span class="entry__current">
+                  <span class="entry__dot" aria-hidden="true" />
+                  Current
+                </span>
+              )}
+            </p>
+
+            <div class="entry__main">
+              <h3 class="entry__school">{entry.school}</h3>
+              <p class="entry__program">{entry.program}</p>
+            </div>
+
+            <div class="entry__side">
+              <p class="entry__location mono">{entry.location}</p>
+              <ul role="list" class="entry__details">
+                {entry.details.map((detail) => (
+                  <li>{detail}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .education {
+    padding-block: var(--space-section);
+  }
+
+  .timeline {
+    border-top: var(--border-width) solid var(--color-border-strong);
+  }
+
+  .entry {
+    position: relative;
+    display: grid;
+    gap: var(--space-4);
+    padding-block: var(--space-7);
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  /* A volt bar grows along the top edge on hover. */
+  .entry::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--border-width) * -1);
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .entry:hover::before {
+    transform: scaleX(1);
+  }
+
+  .entry__period {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-text-muted);
+  }
+
+  .entry__current {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    color: var(--color-text);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-pill);
+  }
+
+  .entry__dot {
+    width: var(--space-2);
+    height: var(--space-2);
+    background: var(--color-accent-mark);
+    border-radius: var(--radius-pill);
+  }
+
+  .entry__school {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    transition: translate var(--dur-base) var(--ease-out);
+  }
+
+  .entry:hover .entry__school {
+    translate: var(--space-2) 0;
+  }
+
+  .entry__program {
+    margin-top: var(--space-3);
+    font-size: var(--text-lg);
+  }
+
+  .entry__location {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .entry__details {
+    display: grid;
+    gap: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  .entry__details li {
+    position: relative;
+    padding-left: var(--space-5);
+  }
+
+  /* Custom bullet: a short volt dash. */
+  .entry__details li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.8em;
+    width: var(--space-3);
+    height: 2px;
+    background: var(--color-accent-mark);
+  }
+
+  @media (min-width: 64rem) {
+    .entry {
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--space-6);
+    }
+
+    .entry__period {
+      grid-column: 1 / span 3;
+      align-self: start;
+      padding-top: var(--space-2);
+    }
+
+    .entry__main {
+      grid-column: 4 / span 5;
+    }
+
+    .entry__side {
+      grid-column: 9 / span 4;
+    }
+  }
+</style>

@@ -1,0 +1,323 @@
+---
+/*
+ * Home screen. Giant offset name, a volt "cursor" block, and the morphing blob
+ * leaning toward the mouse. In dark mode the name inverts where it crosses the blob.
+ */
+import Blob from '../Blob.astro';
+import { site } from '../../config/site';
+
+const builds = ['Software', 'Systems', 'Ideas'];
+---
+
+<section id="home" class="hero" aria-labelledby="hero-title" tabindex="-1">
+  <div class="hero__blob-wrap">
+    <Blob seed={1.3} follow class="hero__blob" />
+  </div>
+
+  <div class="hero__inner container">
+    <div class="hero__top">
+      <p class="mono hero__eyebrow">[ Portfolio / {new Date().getFullYear()} ]</p>
+      <p class="mono hero__status">
+        <span class="hero__pulse" aria-hidden="true"></span>
+        {site.status}
+      </p>
+    </div>
+
+    <h1 id="hero-title" class="hero__name">
+      <span class="hero__line"><span class="hero__line-inner">{site.firstName}</span></span>
+      <span class="hero__line hero__line--offset">
+        <span class="hero__line-inner">
+          {site.lastName}<span class="hero__block" aria-hidden="true"></span>
+        </span>
+      </span>
+      <span class="visually-hidden">, {site.role}</span>
+    </h1>
+
+    <div class="hero__bottom">
+      <div class="hero__builds">
+        <span class="mono hero__builds-label">Builds</span>
+        <ul role="list">
+          {
+            builds.map((item) => (
+              <li>
+                <span class="hero__arrow" aria-hidden="true">
+                  ▸
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <p class="hero__intro">
+        <span class="mono hero__role">{site.role}</span>
+        {site.intro}
+      </p>
+
+      <a href="#about" class="hero__scroll mono">
+        (Scroll)
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    min-height: 100svh;
+    padding-top: var(--header-h);
+    padding-bottom: var(--space-6);
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-7);
+    padding-top: var(--space-6);
+  }
+
+  /* ---- Blob ---- */
+
+  .hero__blob-wrap {
+    position: absolute;
+    top: 18%;
+    right: -12%;
+    width: clamp(18rem, 55vw, 44rem);
+    aspect-ratio: 1;
+    pointer-events: none;
+  }
+
+  @media (min-width: 64rem) {
+    .hero__blob-wrap {
+      top: 16%;
+      right: 16%;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__blob-wrap {
+      animation: blob-in 1.6s var(--ease-out) 300ms both;
+    }
+  }
+
+  @keyframes blob-in {
+    from {
+      opacity: 0;
+      scale: 0.6;
+    }
+  }
+
+  /* ---- Top row ---- */
+
+  .hero__top {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    color: var(--color-text-muted);
+  }
+
+  .hero__status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text);
+  }
+
+  .hero__pulse {
+    position: relative;
+    width: var(--space-2);
+    height: var(--space-2);
+    background: var(--color-accent-mark);
+    border-radius: var(--radius-pill);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__pulse::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--color-accent-mark);
+      animation: pulse 2s var(--ease-out) infinite;
+    }
+  }
+
+  @keyframes pulse {
+    to {
+      scale: 3;
+      opacity: 0;
+    }
+  }
+
+  /* ---- The name ---- */
+
+  .hero__name {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: var(--text-hero);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    mix-blend-mode: var(--hero-blend);
+  }
+
+  /* Phones: size the name to the screen width so GURNOOR fills the row. */
+  @media (max-width: 47.99rem) {
+    .hero__name {
+      font-size: 26vw;
+    }
+  }
+
+  /* Each line is a mask; its inner text slides up into view on load. */
+  .hero__line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.04em;
+  }
+
+  .hero__line-inner {
+    display: inline-flex;
+    align-items: flex-end;
+  }
+
+  .hero__line--offset {
+    padding-left: 18%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__line-inner {
+      animation: rise 1.1s var(--ease-out) both;
+    }
+
+    .hero__line--offset .hero__line-inner {
+      animation-delay: 120ms;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(105%);
+    }
+  }
+
+  /* A terminal-style cursor block after the last name. */
+  .hero__block {
+    display: inline-block;
+    width: 0.42em;
+    height: 0.7em;
+    margin-left: 0.12em;
+    margin-bottom: 0.08em;
+    background: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__block {
+      animation: blink 1.1s steps(1) 1.4s infinite;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* ---- Bottom row ---- */
+
+  .hero__bottom {
+    display: grid;
+    gap: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: var(--border-width) solid var(--color-border-strong);
+  }
+
+  .hero__builds {
+    display: flex;
+    gap: var(--space-5);
+  }
+
+  .hero__builds-label {
+    color: var(--color-text-muted);
+    padding-top: var(--space-1);
+  }
+
+  .hero__builds ul {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .hero__arrow {
+    margin-right: var(--space-2);
+    color: var(--color-accent-text);
+  }
+
+  .hero__intro {
+    max-width: 36ch;
+    font-size: var(--text-lg);
+    line-height: 1.4;
+  }
+
+  .hero__role {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  .hero__scroll {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    align-self: end;
+    min-height: 44px;
+    text-decoration: none;
+  }
+
+  .hero__scroll-line {
+    position: relative;
+    width: var(--space-8);
+    height: var(--border-width);
+    background: var(--color-border);
+    overflow: hidden;
+  }
+
+  /* A short volt dash that runs along the line, hinting "go this way". */
+  .hero__scroll-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__scroll-line::after {
+      animation: run 1.8s var(--ease-in-out) infinite;
+    }
+  }
+
+  @keyframes run {
+    from {
+      translate: -100% 0;
+    }
+    to {
+      translate: 250% 0;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .hero__bottom {
+      grid-template-columns: 1fr 1.4fr auto;
+      align-items: start;
+    }
+  }
+</style>

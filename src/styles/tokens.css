@@ -1,0 +1,137 @@
+/*
+ * Design tokens: the single source of truth for color, type, spacing and motion.
+ * Components only use the semantic tokens (--color-*, --space-*, --text-*),
+ * never raw hex values, so a re-theme only touches this file.
+ *
+ * Palette "Volt": ink + bone + one acid accent. Three hues, no more.
+ */
+
+:root {
+  /* ---- Primitives (only referenced inside this file) ---- */
+  --ink-950: #0c0c0e;
+  --ink-900: #141417;
+  --ink-800: #1f1f23;
+  --ink-600: #3a3a40;
+  --bone-50: #f4f1ea;
+  --bone-100: #ece8df;
+  --bone-300: #cfc9bc;
+  --stone-400: #9d988e; /* muted text on ink: 7.1:1 */
+  --stone-600: #57534b; /* muted text on bone: 6.4:1 */
+  --volt-400: #d4ff3a;
+  --volt-800: #3d5200; /* accent used as text on bone: 7.6:1 */
+
+  /* ---- Semantic colors: light theme ---- */
+  --color-bg: var(--bone-100);
+  --color-surface: var(--bone-50);
+  --color-text: var(--ink-950);
+  --color-text-muted: var(--stone-600);
+  --color-border: color-mix(in srgb, var(--ink-950) 14%, transparent);
+  --color-border-strong: var(--ink-950);
+  --color-accent: var(--volt-400); /* fills: blocks, pills, the blob */
+  --color-on-accent: var(--ink-950); /* text sitting on the accent */
+  --color-accent-text: var(--volt-800); /* accent used as text color */
+  /* Small accent marks (dots, dashes). Volt is too faint on bone, so light mode uses olive. */
+  --color-accent-mark: var(--volt-800);
+  --color-outline-text: color-mix(in srgb, var(--ink-950) 30%, transparent);
+  --color-header-bg: color-mix(in srgb, var(--bone-100) 72%, transparent);
+  --color-focus: var(--ink-950);
+  --blob-stroke: var(--ink-950);
+  /* The hero name "inverts" where it crosses the blob in dark mode.
+     In light mode ink-on-volt already contrasts, so no blending is needed. */
+  --hero-blend: normal;
+  --grain-opacity: 0.05;
+
+  /* ---- Typography ---- */
+  --font-display: 'Bricolage Grotesque', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Fluid sizes: clamp(min, preferred, max) scales smoothly between phone and desktop. */
+  --text-xs: 0.75rem; /* 12px: mono labels */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1.0625rem; /* 17px body */
+  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --text-2xl: clamp(2rem, 1.4rem + 2.6vw, 3.75rem);
+  --text-3xl: clamp(3rem, 1.6rem + 6vw, 7.5rem); /* section titles */
+  --text-hero: clamp(4.5rem, 1rem + 16.5vw, 17rem); /* GURNOOR / GILL */
+
+  --leading-tight: 0.86;
+  --leading-heading: 1.1;
+  --leading-body: 1.6;
+  --tracking-tight: -0.02em;
+  --tracking-label: 0.08em;
+
+  /* ---- Spacing: 8pt grid ---- */
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.5rem; /* 24 */
+  --space-6: 2rem; /* 32 */
+  --space-7: 3rem; /* 48 */
+  --space-8: 4rem; /* 64 */
+  --space-9: 6rem; /* 96 */
+  --space-10: 8rem; /* 128 */
+  --space-section: clamp(var(--space-9), 12vw, 10rem);
+
+  /* ---- Layout ---- */
+  --container: 90rem; /* 1440px */
+  --measure: 62ch; /* comfortable reading width */
+  --gutter: clamp(var(--space-4), 4vw, var(--space-7));
+  --header-h: 4.5rem; /* 72px */
+
+  /* ---- Shape ---- */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+  --border-width: 1px;
+  --focus-ring: 2px solid var(--color-focus);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 900ms; /* big reveal wipes only */
+}
+
+/* ---- Dark theme (the default look) ----
+ * Applied when the OS prefers dark, unless the page is forced to light.
+ * Keep this block and the [data-theme='dark'] block below in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: var(--ink-950);
+    --color-surface: var(--ink-900);
+    --color-text: var(--bone-100);
+    --color-text-muted: var(--stone-400);
+    --color-border: color-mix(in srgb, var(--bone-100) 14%, transparent);
+    --color-border-strong: var(--bone-100);
+    --color-accent-text: var(--volt-400);
+    --color-accent-mark: var(--volt-400);
+    --color-outline-text: color-mix(in srgb, var(--bone-100) 28%, transparent);
+    --color-header-bg: color-mix(in srgb, var(--ink-950) 70%, transparent);
+    --color-focus: var(--volt-400);
+    --blob-stroke: transparent;
+    --hero-blend: difference;
+    --grain-opacity: 0.07;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: var(--ink-950);
+  --color-surface: var(--ink-900);
+  --color-text: var(--bone-100);
+  --color-text-muted: var(--stone-400);
+  --color-border: color-mix(in srgb, var(--bone-100) 14%, transparent);
+  --color-border-strong: var(--bone-100);
+  --color-accent-text: var(--volt-400);
+  --color-accent-mark: var(--volt-400);
+  --color-outline-text: color-mix(in srgb, var(--bone-100) 28%, transparent);
+  --color-header-bg: color-mix(in srgb, var(--ink-950) 70%, transparent);
+  --color-focus: var(--volt-400);
+  --blob-stroke: transparent;
+  --hero-blend: difference;
+  --grain-opacity: 0.07;
+}

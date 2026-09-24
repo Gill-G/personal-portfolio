@@ -1,0 +1,24 @@
+---
+/*
+ * The whole site is one scrolling page. Each section is its own component in
+ * src/components/sections/. To add a section: create the component, drop it in
+ * here, and add its id + label to src/config/nav.ts.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Marquee from '../components/Marquee.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import Education from '../components/sections/Education.astro';
+import Projects from '../components/sections/Projects.astro';
+import Contact from '../components/sections/Contact.astro';
+---
+
+<BaseLayout>
+  <Hero />
+  <Marquee words={['Software', 'Systems', 'Ideas', 'Interfaces', 'Tools']} />
+  <About />
+  <Education />
+  <Projects />
+  <Marquee words={['Say hello', 'Collaborate', 'Build', 'Ship']} />
+  <Contact />
+</BaseLayout>

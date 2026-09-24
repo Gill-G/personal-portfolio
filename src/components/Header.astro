@@ -1,0 +1,295 @@
+---
+/*
+ * Fixed header: GG logo (top left, back to top) and section tabs (top right).
+ * On small screens the tabs collapse into a "Menu" button that opens a
+ * full-screen list. Behaviour lives in src/scripts/nav.ts.
+ */
+import Logo from './Logo.astro';
+import { sections } from '../config/nav';
+import { site } from '../config/site';
+
+const number = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<header class="header" data-header>
+  <div class="header__inner container">
+    <a href="#home" class="header__logo" aria-label={`${site.name}, back to top`}>
+      <Logo />
+    </a>
+
+    <nav aria-label="Sections">
+      <ul role="list" class="tabs" data-tabs data-pill="off">
+        {
+          sections.map((section, i) => (
+            <li>
+              <a href={`#${section.id}`} class="tab" data-tab={section.id}>
+                <span class="tab__num" aria-hidden="true">
+                  {number(i)}
+                </span>
+                {section.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button
+        type="button"
+        class="menu-button mono"
+        aria-expanded="false"
+        aria-controls="menu"
+        data-menu-button
+      >
+        <span class="menu-button__icon" aria-hidden="true"></span>
+        Menu
+      </button>
+    </nav>
+  </div>
+
+  <!-- Small-screen menu. Hidden until the Menu button opens it. -->
+  <div id="menu" class="menu" hidden>
+    <ul role="list" class="menu__list container">
+      {
+        sections.map((section, i) => (
+          <li>
+            <a href={`#${section.id}`} class="menu__link" data-tab={section.id}>
+              <span class="mono">{number(i)}</span>
+              {section.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="menu__footer container mono">
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out);
+    border-bottom: var(--border-width) solid transparent;
+  }
+
+  /* Once scrolled, a frosted backdrop keeps the tabs readable over content. */
+  .header[data-scrolled] {
+    background: var(--color-header-bg);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom-color: var(--color-border);
+  }
+
+  .header[data-menu-open] {
+    background: var(--color-bg);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-h);
+  }
+
+  .header__logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+  }
+
+  /* ---- Desktop tabs ---- */
+
+  .tabs {
+    position: relative;
+    display: none;
+    gap: var(--space-1);
+    padding: var(--space-1);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-pill);
+  }
+
+  /* The sliding accent pill. nav.ts sets --pill-x and --pill-w on the list. */
+  .tabs::before {
+    content: '';
+    position: absolute;
+    top: var(--space-1);
+    bottom: var(--space-1);
+    left: 0;
+    width: var(--pill-w, 0);
+    translate: var(--pill-x, 0) 0;
+    background: var(--color-accent);
+    border-radius: var(--radius-pill);
+    transition:
+      translate var(--dur-slow) var(--ease-out),
+      width var(--dur-slow) var(--ease-out),
+      opacity var(--dur-base) var(--ease-out);
+  }
+
+  .tabs[data-pill='off']::before {
+    opacity: 0;
+  }
+
+  .tab {
+    position: relative; /* sits above the pill */
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--dur-base) var(--ease-out);
+  }
+
+  .tab__num {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+
+  .tab:hover .tab__num {
+    color: var(--color-text);
+  }
+
+  .tab[aria-current] {
+    color: var(--color-on-accent);
+  }
+
+  .tab[aria-current] .tab__num {
+    color: var(--color-on-accent);
+  }
+
+  /* ---- Small-screen menu ---- */
+
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    padding: 0 var(--space-4);
+    background: none;
+    color: inherit;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+  }
+
+  /* Two bars that turn into an X when the menu is open. */
+  .menu-button__icon {
+    position: relative;
+    width: var(--space-4);
+    height: var(--space-2);
+  }
+
+  .menu-button__icon::before,
+  .menu-button__icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: currentColor;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+
+  .menu-button__icon::before {
+    top: 0;
+  }
+
+  .menu-button__icon::after {
+    bottom: 0;
+  }
+
+  .menu-button[aria-expanded='true'] .menu-button__icon::before {
+    transform: translateY(3px) rotate(45deg);
+  }
+
+  .menu-button[aria-expanded='true'] .menu-button__icon::after {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+
+  .menu {
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-block: var(--space-7) var(--space-6);
+    background: var(--color-bg);
+  }
+
+  .menu[hidden] {
+    display: none;
+  }
+
+  .menu__link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding-block: var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .menu__link .mono {
+    color: var(--color-text-muted);
+  }
+
+  .menu__link[aria-current] {
+    color: var(--color-accent-text);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .menu:not([hidden]) .menu__link {
+      animation: menu-in var(--dur-slow) var(--ease-out) both;
+    }
+
+    .menu li:nth-child(2) .menu__link {
+      animation-delay: 60ms;
+    }
+
+    .menu li:nth-child(3) .menu__link {
+      animation-delay: 120ms;
+    }
+
+    .menu li:nth-child(4) .menu__link {
+      animation-delay: 180ms;
+    }
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(40%);
+    }
+  }
+
+  .menu__footer a {
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .tabs {
+      display: flex;
+    }
+
+    .menu-button,
+    .menu {
+      display: none;
+    }
+  }
+</style>

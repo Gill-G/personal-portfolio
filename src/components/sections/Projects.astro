@@ -1,0 +1,98 @@
+---
+/*
+ * Projects come from Markdown files in src/content/projects/ (see _template.md).
+ * Add a file and it appears here automatically, sorted by `order`.
+ */
+import { getCollection } from 'astro:content';
+import SectionHeading from '../SectionHeading.astro';
+import ProjectCard from '../ProjectCard.astro';
+import { site } from '../../config/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="projects" class="projects" aria-labelledby="projects-title" tabindex="-1">
+  <div class="container">
+    <SectionHeading
+      number="03"
+      title="Projects"
+      id="projects-title"
+      kicker="Placeholder: a short line about the kind of things you build."
+    />
+
+    <div class="projects__grid">
+      {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
+    </div>
+
+    {
+      site.links.github && (
+        <p class="projects__more">
+          <a href={site.links.github} class="mono">
+            More on GitHub <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .projects {
+    padding-block: var(--space-section);
+  }
+
+  .projects__grid {
+    display: grid;
+    gap: var(--space-9) var(--space-6);
+  }
+
+  /*
+   * An uneven, magazine-like rhythm instead of identical cards:
+   * wide + narrow, then narrow + wide, repeating every 4 projects.
+   * The narrow cards drop lower and use a taller image.
+   */
+  @media (min-width: 56rem) {
+    .projects__grid {
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .projects__grid > :global(:nth-child(4n + 1)),
+    .projects__grid > :global(:nth-child(4n + 4)) {
+      grid-column: span 7;
+    }
+
+    .projects__grid > :global(:nth-child(4n + 2)),
+    .projects__grid > :global(:nth-child(4n + 3)) {
+      grid-column: span 5;
+      --art-ratio: 4 / 5;
+    }
+
+    .projects__grid > :global(:nth-child(4n + 2)) {
+      margin-top: var(--space-10);
+    }
+  }
+
+  .projects__more {
+    margin-top: var(--space-9);
+    text-align: center;
+  }
+
+  .projects__more a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 44px;
+    padding: var(--space-3) var(--space-6);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out);
+  }
+
+  .projects__more a:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
+</style>

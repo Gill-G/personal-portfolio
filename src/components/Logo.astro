@@ -1,0 +1,42 @@
+---
+/*
+ * The GG monogram: a solid G overlapped by an outlined G. On hover (styled from
+ * the parent link in Header.astro) the second G slides out and fills with volt.
+ */
+import { site } from '../config/site';
+
+const [first, second] = site.initials;
+---
+
+<span class="logo" aria-hidden="true">
+  <span class="logo__a">{first}</span>
+  <span class="logo__b">{second}</span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .logo__b {
+    margin-left: -0.1em;
+    color: transparent;
+    -webkit-text-stroke: var(--border-width) var(--color-text);
+    transition:
+      translate var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out);
+  }
+
+  :global(a:hover) > .logo .logo__b,
+  :global(a:focus-visible) > .logo .logo__b {
+    translate: 0.12em 0;
+    color: var(--color-accent);
+  }
+</style>

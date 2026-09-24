@@ -1,0 +1,91 @@
+---
+/*
+ * Section opener: a giant outlined index number, a mono label and the h2 title.
+ * The number is decorative (aria-hidden); the h2 carries the real name.
+ */
+interface Props {
+  number: string;
+  title: string;
+  id: string; // id for the h2, used by the section's aria-labelledby
+  kicker?: string; // short line under the title
+}
+
+const { number, title, id, kicker } = Astro.props;
+---
+
+<header class="sh">
+  <span class="sh__num" aria-hidden="true" data-reveal="wipe">{number}</span>
+  <div class="sh__text">
+    <p class="sh__label mono" data-reveal>
+      <span class="sh__dot" aria-hidden="true"></span>
+      {number} / {title}
+    </p>
+    <h2 id={id} class="sh__title" data-reveal style="--reveal-delay: 80ms">{title}</h2>
+    {
+      kicker && (
+        <p class="sh__kicker" data-reveal style="--reveal-delay: 160ms">
+          {kicker}
+        </p>
+      )
+    }
+  </div>
+</header>
+
+<style>
+  .sh {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: end;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .sh__num {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 2rem + 18vw, 18rem);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: 0.75;
+    letter-spacing: 0; /* outlined strokes would cross if letters overlapped */
+    color: transparent;
+    -webkit-text-stroke: var(--border-width) var(--color-outline-text);
+  }
+
+  .sh__label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .sh__dot {
+    width: var(--space-2);
+    height: var(--space-2);
+    background: var(--color-accent-mark);
+    border-radius: var(--radius-pill);
+  }
+
+  .sh__title {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+  }
+
+  .sh__kicker {
+    max-width: 40ch;
+    margin-top: var(--space-4);
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .sh {
+      grid-template-columns: auto 1fr;
+      gap: var(--space-6);
+    }
+  }
+</style>

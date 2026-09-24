@@ -1,0 +1,188 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectArt from './ProjectArt.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const { title, summary, year, status, tags, repo, demo } = project.data;
+
+// Status is shown as text plus a shape, never by color alone.
+const statusLabels = {
+  shipped: 'Shipped',
+  'in-progress': 'In progress',
+  concept: 'Concept',
+} as const;
+
+const number = String(index + 1).padStart(2, '0');
+// The card's main link: the live demo if there is one, otherwise the code.
+const primaryLink = demo ?? repo;
+---
+
+<article class="card" data-reveal style={`--reveal-delay: ${(index % 2) * 100}ms`}>
+  <div class="card__art">
+    <ProjectArt seed={index * 2.1 + 0.7} />
+    <span class="card__num mono">P—{number}</span>
+  </div>
+
+  <div class="card__body">
+    <div class="card__meta mono">
+      <span class={`card__status card__status--${status}`}>
+        <span class="card__status-icon" aria-hidden="true"></span>
+        {statusLabels[status]}
+      </span>
+      <span>{year}</span>
+    </div>
+
+    <h3 class="card__title">
+      {
+        primaryLink ? (
+          <a href={primaryLink} class="card__link">
+            {title}
+            <span class="card__arrow" aria-hidden="true">
+              ↗
+            </span>
+          </a>
+        ) : (
+          title
+        )
+      }
+    </h3>
+
+    <p class="card__summary">{summary}</p>
+
+    <ul role="list" class="card__tags">
+      {tags.map((tag) => <li class="mono">{tag}</li>)}
+    </ul>
+
+    {
+      repo && demo && (
+        <p class="card__secondary mono">
+          <a href={repo}>Source code</a>
+        </p>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .card__art {
+    position: relative;
+    aspect-ratio: var(--art-ratio, 4 / 3);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--dur-base) var(--ease-out);
+  }
+
+  .card:hover .card__art {
+    border-color: var(--color-border-strong);
+  }
+
+  .card__num {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-bg);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-pill);
+  }
+
+  .card__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    color: var(--color-text-muted);
+  }
+
+  .card__status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text);
+  }
+
+  /* Filled square = shipped, half = in progress, hollow = concept. */
+  .card__status-icon {
+    width: var(--space-2);
+    height: var(--space-2);
+    border: var(--border-width) solid var(--color-text);
+  }
+
+  .card__status--shipped .card__status-icon {
+    background: var(--color-accent-mark);
+    border-color: var(--color-accent-mark);
+  }
+
+  .card__status--in-progress .card__status-icon {
+    background: linear-gradient(90deg, var(--color-text) 50%, transparent 50%);
+  }
+
+  .card__title {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .card__link {
+    text-decoration: none;
+  }
+
+  /* Stretch the link over the whole card so everything is clickable. */
+  .card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .card__arrow {
+    display: inline-block;
+    margin-left: var(--space-2);
+    color: var(--color-accent-text);
+    transition: translate var(--dur-base) var(--ease-out);
+  }
+
+  .card:hover .card__arrow {
+    translate: 3px -3px;
+  }
+
+  .card__summary {
+    max-width: 52ch;
+    color: var(--color-text-muted);
+  }
+
+  .card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .card__tags li {
+    padding: var(--space-1) var(--space-3);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.02em;
+    text-transform: none;
+  }
+
+  /* The secondary link sits above the stretched link so it stays clickable. */
+  .card__secondary {
+    position: relative;
+    z-index: 2;
+  }
+</style>

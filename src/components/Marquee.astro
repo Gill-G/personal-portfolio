@@ -1,0 +1,70 @@
+---
+/*
+ * A band of huge words scrolling sideways between sections. Decorative only,
+ * so it's hidden from screen readers. effects.ts moves it (faster when you
+ * scroll faster, reversed when you scroll up).
+ */
+interface Props {
+  words: string[];
+}
+
+const { words } = Astro.props;
+// The words are rendered twice so the band can loop seamlessly.
+const copies = [0, 1];
+---
+
+<div class="marquee" aria-hidden="true" data-marquee>
+  <div class="marquee__track" data-marquee-track>
+    {
+      copies.map(() =>
+        words.map((word) => (
+          <span class="marquee__item">
+            <span class="marquee__word">{word}</span>
+            <span class="marquee__star">✦</span>
+          </span>
+        )),
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    padding-block: var(--space-5);
+    border-block: var(--border-width) solid var(--color-border);
+    user-select: none;
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding-right: var(--space-6);
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Alternate filled and outlined words for rhythm. */
+  .marquee__item:nth-child(even) .marquee__word {
+    color: transparent;
+    -webkit-text-stroke: var(--border-width) var(--color-text);
+  }
+
+  .marquee__star {
+    font-size: 0.4em;
+    color: var(--color-accent-text);
+  }
+</style>
