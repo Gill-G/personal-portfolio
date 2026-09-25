@@ -2,12 +2,13 @@
 import SectionHeading from '../SectionHeading.astro';
 import Blob from '../Blob.astro';
 import { site } from '../../config/site';
+import { withBase } from '../../utils/url';
 
 // Only links with a value are shown (see site.ts).
 const links = [
   { label: 'GitHub', href: site.links.github },
   { label: 'LinkedIn', href: site.links.linkedin },
-  { label: 'Résumé', href: site.links.resume },
+  { label: 'Résumé', href: site.links.resume && withBase(site.links.resume) },
 ].filter((link) => link.href);
 ---
 

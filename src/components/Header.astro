@@ -1,12 +1,14 @@
 ---
 /*
- * Fixed header: GG logo (top left, back to top) and section tabs (top right).
+ * Fixed header: GG logo (top left, back to top), section tabs and a résumé
+ * button (top right).
  * On small screens the tabs collapse into a "Menu" button that opens a
  * full-screen list. Behaviour lives in src/scripts/nav.ts.
  */
 import Logo from './Logo.astro';
 import { sections } from '../config/nav';
 import { site } from '../config/site';
+import { withBase } from '../utils/url';
 
 const number = (i: number) => String(i + 1).padStart(2, '0');
 ---
@@ -17,33 +19,47 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
       <Logo />
     </a>
 
-    <nav aria-label="Sections">
-      <ul role="list" class="tabs" data-tabs data-pill="off">
-        {
-          sections.map((section, i) => (
-            <li>
-              <a href={`#${section.id}`} class="tab" data-tab={section.id}>
-                <span class="tab__num" aria-hidden="true">
-                  {number(i)}
-                </span>
-                {section.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+    <div class="header__actions">
+      <nav aria-label="Sections">
+        <ul role="list" class="tabs" data-tabs data-pill="off">
+          {
+            sections.map((section, i) => (
+              <li>
+                <a href={`#${section.id}`} class="tab" data-tab={section.id}>
+                  <span class="tab__num" aria-hidden="true">
+                    {number(i)}
+                  </span>
+                  {section.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
 
-      <button
-        type="button"
-        class="menu-button mono"
-        aria-expanded="false"
-        aria-controls="menu"
-        data-menu-button
-      >
-        <span class="menu-button__icon" aria-hidden="true"></span>
-        Menu
-      </button>
-    </nav>
+        <button
+          type="button"
+          class="menu-button mono"
+          aria-expanded="false"
+          aria-controls="menu"
+          data-menu-button
+        >
+          <span class="menu-button__icon" aria-hidden="true"></span>
+          Menu
+        </button>
+      </nav>
+
+      {
+        site.links.resume && (
+          <a href={withBase(site.links.resume)} class="resume mono" target="_blank" rel="noopener">
+            Résumé
+            <span class="resume__arrow" aria-hidden="true">
+              ↗
+            </span>
+            <span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        )
+      }
+    </div>
   </div>
 
   <!-- Small-screen menu. Hidden until the Menu button opens it. -->
@@ -94,6 +110,12 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
     align-items: center;
     justify-content: space-between;
     height: var(--header-h);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
   }
 
   .header__logo {
@@ -165,6 +187,43 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
 
   .tab[aria-current] .tab__num {
     color: var(--color-on-accent);
+  }
+
+  /* ---- Résumé button ----
+   * Inverted pill (text color as the fill) so it reads as an action, distinct
+   * from the volt pill that marks the active tab. Fills volt on hover. */
+
+  .resume {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    padding: 0 var(--space-5);
+    background: var(--color-text);
+    color: var(--color-bg);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out),
+      scale var(--dur-fast) var(--ease-out);
+  }
+
+  .resume:hover {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .resume:active {
+    scale: 0.97;
+  }
+
+  .resume__arrow {
+    transition: translate var(--dur-base) var(--ease-out);
+  }
+
+  .resume:hover .resume__arrow {
+    translate: 2px -2px;
   }
 
   /* ---- Small-screen menu ---- */

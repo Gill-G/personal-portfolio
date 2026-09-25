@@ -16,7 +16,8 @@ export const site = {
   links: {
     github: 'https://github.com/',
     linkedin: 'https://www.linkedin.com/',
-    resume: '',
+    // A file in /public (replace public/resume.pdf with your real résumé) or a full URL.
+    resume: 'resume.pdf',
   },
   description: 'Portfolio of Gurnoor Gill, software developer.',
 } as const;
