@@ -16,8 +16,8 @@ export const site = {
   links: {
     github: 'https://github.com/',
     linkedin: 'https://www.linkedin.com/',
-    // A file in /public (replace public/resume.pdf with your real résumé) or a full URL.
-    resume: 'resume.pdf',
+    // A file in /public that will be served as-is. Can be used to provide a downloadable resume.
+    resume: 'Resume_GurnoorGill.pdf',
   },
   description: 'Portfolio of Gurnoor Gill, software developer.',
 } as const;
