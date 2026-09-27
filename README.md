@@ -1,59 +1,90 @@
-# Gurnoor Gill — Portfolio
+# personal-portfolio
 
-A bold, single-page portfolio built from scratch with Astro and TypeScript.
+Personal portfolio of **Gurnoor Gill**, designed and built from scratch.
 
-**[gill-g.github.io/personal-portfolio →](https://gill-g.github.io/personal-portfolio/)**
+**Live:** https://gill-g.github.io/personal-portfolio/
 
-![Home screen of the portfolio: oversized "GURNOOR GILL" type beside a lime morphing blob on a dark background](.github/preview.png)
+## Features
 
-## About
+- One scrolling page (Home, About, Education, Projects, Contact) with tabs that track your position
+- Smooth scrolling and scroll-triggered animation
+- Dark and light themes that follow your system setting
+- Keyboard accessible, WCAG AA contrast, and reduced-motion support
+- Mobile menu and a résumé button in the header
 
-I'm a Software Development & Network Engineering student at Sheridan College, focused on
-full-stack development, cloud and machine learning. This site is where I share who I am,
-what I've built and how to reach me. I designed and built it myself, and it grows as I do.
+## Tech stack
 
-## Highlights
+| Tool                                                  | Used for                                         |
+| ----------------------------------------------------- | ------------------------------------------------ |
+| [Astro 7](https://astro.build)                        | Static site framework (plain HTML output)        |
+| TypeScript (strict)                                   | Scripts and type-checked content                 |
+| Plain CSS + design tokens                             | All styling. No Tailwind or CSS-in-JS            |
+| [Lenis](https://github.com/darkroomengineering/lenis) | Smooth scrolling                                 |
+| GitHub Actions + GitHub Pages                         | Automatic build and deploy on every push to main |
 
-- **One page, five sections.** Home, About, Education, Projects and Contact, with tabs that
-  glide to each section and track where you are as you scroll.
-- **Smooth, responsive motion.** Inertial scrolling, text that reveals as it scrolls into
-  view, and marquee bands that speed up and reverse with your scroll.
-- **A living centerpiece.** A lime blob that slowly morphs and leans toward your cursor. It
-  returns as the artwork on each project card.
-- **A header that gets out of the way.** It hides while you read and slides back when you
-  scroll up or reach for the top of the screen.
-- **Dark and light themes** that follow your system setting.
-- **Accessible by design.** Full keyboard support, WCAG AA contrast in both themes, and
-  animations that switch off for anyone who prefers reduced motion.
-- **Fast.** Static HTML with no framework running in the browser, deployed automatically on
-  every push.
+## Technical highlights
 
-## Built with
+- **No UI framework in the browser.** Pages are static HTML. The little interactivity there
+  is uses small TypeScript modules, so the site loads fast.
+- **Content kept apart from code.** Personal details, section text and projects live in
+  typed data files and a Markdown content collection. Adding a project means adding one
+  Markdown file, and the build fails if a field is missing or has the wrong type.
 
-| | |
-| --- | --- |
-| **Framework** | [Astro](https://astro.build) (static output) |
-| **Language** | TypeScript |
-| **Styling** | Hand-written CSS with design tokens |
-| **Motion** | [Lenis](https://github.com/darkroomengineering/lenis) smooth scrolling, native CSS and JavaScript animation |
-| **Type** | [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque) and [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) |
-| **Hosting** | GitHub Pages, deployed with GitHub Actions |
+## Design system
 
-## Run it locally
+All visual values live in `src/styles/tokens.css`:
+
+- **Palette:** ink, bone and one lime accent, in dark (default) and light themes
+- **Type:** Bricolage Grotesque for headings and body, JetBrains Mono for labels
+- **Spacing:** an 8pt grid
+- **Motion:** short 150–250ms transitions, turned off under `prefers-reduced-motion`
+
+## Getting started
+
+Requires **Node.js 22.12 or newer**.
 
 ```bash
-npm install
-npm run dev
+npm install      # install dependencies
+npm run dev      # start the dev server at http://localhost:4321/personal-portfolio/
 ```
 
-Then open http://localhost:4321/personal-portfolio/.
+| Command           | What it does                                      |
+| ----------------- | ------------------------------------------------- |
+| `npm run dev`     | Start the local dev server                        |
+| `npm run build`   | Type-check (`astro check`), then build to `dist/` |
+| `npm run preview` | Serve the built `dist/` folder locally            |
+
+## Project structure
+
+```text
+public/              Static files (favicon, résumé PDF)
+src/
+  config/            Site-wide details and navigation
+  data/              About and Education content
+  content/projects/  One Markdown file per project
+  components/        Page sections and reusable building blocks
+  layouts/           The page shell
+  pages/             Routes (the site is a single page)
+  scripts/           Browser behaviour: scrolling, navigation, animation
+  styles/            Design tokens and global styles
+.github/workflows/   Build and deploy pipeline
+```
+
+## Deployment
+
+Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and
+publishes it to GitHub Pages in about a minute. The site is served from the
+`/personal-portfolio` sub-path (set as `base` in `astro.config.mjs`), so links to files in
+`public/` go through the `withBase()` helper in `src/utils/url.ts`.
+
+## Roadmap
+
+- [ ] Project detail pages generated from each project's Markdown
+- [ ] Light/dark theme toggle
+- [ ] Custom domain or the shorter `gill-g.github.io` address
 
 ## Contact
 
-- **Email:** [gillg.dev@gmail.com](mailto:gillg.dev@gmail.com)
-- **LinkedIn:** [linkedin.com/in/gurnoor-gill-a33280431](https://www.linkedin.com/in/gurnoor-gill-a33280431/)
-- **Résumé:** [view PDF](https://gill-g.github.io/personal-portfolio/Resume_GurnoorGill.pdf)
-
----
-
-© 2026 Gurnoor Gill. Design and content are my own. Please don't reuse them as-is.
+[gillg.dev@gmail.com](mailto:gillg.dev@gmail.com) ·
+[LinkedIn](https://www.linkedin.com/in/gurnoor-gill-a33280431/) ·
+[GitHub](https://github.com/Gill-G)
