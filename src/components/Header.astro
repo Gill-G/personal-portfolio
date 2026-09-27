@@ -8,7 +8,7 @@
 import Logo from './Logo.astro';
 import { sections } from '../config/nav';
 import { site } from '../config/site';
-import { withBase } from '../utils/url';
+import { url } from '../utils/url';
 
 const number = (i: number) => String(i + 1).padStart(2, '0');
 ---
@@ -50,7 +50,7 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
 
       {
         site.links.resume && (
-          <a href={withBase(site.links.resume)} class="resume mono" target="_blank" rel="noopener">
+          <a href={url(site.links.resume)} class="resume mono" target="_blank" rel="noopener">
             Résumé
             <span class="resume__arrow" aria-hidden="true">
               ↗
