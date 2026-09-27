@@ -13,4 +13,13 @@ export default defineConfig({
 
   // Plain static HTML output: deployable to GitHub Pages, Netlify, Vercel or S3.
   output: 'static',
+
+  vite: {
+    server: {
+      // The project lives on the Windows drive (/mnt/c) but runs in WSL, where file-change
+      // events don't get through. Polling checks files for changes instead, so the dev
+      // server still reloads when you save.
+      watch: { usePolling: true, interval: 300 },
+    },
+  },
 });

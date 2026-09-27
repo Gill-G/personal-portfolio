@@ -6,7 +6,7 @@
 import Blob from '../Blob.astro';
 import { site } from '../../config/site';
 
-const builds = ['Software', 'Systems', 'Ideas'];
+const builds = ['Transfer Value Predictor', 'Datadog Clone', 'Bubble Pop Game'];
 ---
 
 <section id="home" class="hero" aria-labelledby="hero-title" tabindex="-1">
@@ -50,10 +50,17 @@ const builds = ['Software', 'Systems', 'Ideas'];
         </ul>
       </div>
 
-      <p class="hero__intro">
-        <span class="mono hero__role">{site.role}</span>
-        {site.intro}
-      </p>
+      <div class="hero__intro">
+        <p class="mono hero__role">{site.role}</p>
+        <figure class="hero__quote">
+          <blockquote>
+            <p>&ldquo;{site.quote.text}&rdquo;</p>
+          </blockquote>
+          <figcaption class="mono">
+            &mdash; {site.quote.author}, <cite>{site.quote.source}</cite>
+          </figcaption>
+        </figure>
+      </div>
 
       <a href="#about" class="hero__scroll mono">
         (Scroll)
@@ -262,15 +269,36 @@ const builds = ['Software', 'Systems', 'Ideas'];
   }
 
   .hero__intro {
-    max-width: 36ch;
-    font-size: var(--text-lg);
-    line-height: 1.4;
+    max-width: 38ch;
   }
 
   .hero__role {
-    display: block;
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-4);
     color: var(--color-text-muted);
+  }
+
+  /* The quote: a volt rule on the left, with the opening quote mark hanging
+     outside the text so the words themselves line up. */
+  .hero__quote {
+    padding-left: var(--space-5);
+    border-left: 2px solid var(--color-accent-mark);
+  }
+
+  .hero__quote blockquote p {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    line-height: 1.35;
+    text-indent: -0.4em;
+  }
+
+  .hero__quote figcaption {
+    margin-top: var(--space-3);
+    color: var(--color-text-muted);
+  }
+
+  .hero__quote cite {
+    font-style: normal;
+    color: var(--color-text);
   }
 
   .hero__scroll {

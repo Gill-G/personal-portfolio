@@ -6,9 +6,13 @@ export const site = {
   firstName: 'Gurnoor',
   lastName: 'Gill',
   initials: 'GG',
-  role: 'Software Developer',
-  // One sentence shown under your name on the home screen.
-  intro: 'Placeholder intro: one line about what you build and what you care about.',
+  role: 'Software Development @ Sheridan College',
+  // The quote shown under your name on the home screen. Quote marks are added for you.
+  quote: {
+    text: 'It is impossible for a man to learn what he thinks he already knows.',
+    author: 'Epictetus',
+    source: 'Discourses',
+  },
   location: 'City, Country',
   status: 'Open to internships',
   email: 'your.email@example.com',
