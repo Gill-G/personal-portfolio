@@ -1,164 +1,59 @@
-# personal-portfolio
+# Gurnoor Gill — Portfolio
 
-Personal tech portfolio for **Gurnoor Gill**: a single scrolling page with Home, About,
-Education, Projects and Contact sections.
+A bold, single-page portfolio built from scratch with Astro and TypeScript.
 
-**Live:** https://gill-g.github.io/personal-portfolio/
+**[gill-g.github.io/personal-portfolio →](https://gill-g.github.io/personal-portfolio/)**
 
-## Features
+![Home screen of the portfolio: oversized "GURNOOR GILL" type beside a lime morphing blob on a dark background](.github/preview.png)
 
-- **One-page layout.** Tabs in the top right glide to each section. The active tab is
-  highlighted as you scroll, and the GG logo in the top left takes you back to the top.
-- **Smooth scrolling** with [Lenis](https://github.com/darkroomengineering/lenis).
-- **Bold, abstract design.** Oversized condensed type, a morphing blob that leans toward
-  the cursor, marquee bands that react to scroll speed, and scroll-triggered reveals.
-- **Dark and light themes** that follow the visitor's OS setting.
-- **Accessible.** Keyboard navigation with visible focus, a skip link, WCAG AA contrast in
-  both themes, and all motion turned off for visitors who prefer reduced motion.
-- **Mobile friendly.** On small screens the tabs collapse into a full-screen menu.
-- **Résumé button** in the header that opens the PDF in a new tab.
+## About
 
-## Tech stack
+I'm a Software Development & Network Engineering student at Sheridan College, focused on
+full-stack development, cloud and machine learning. This site is where I share who I am,
+what I've built and how to reach me. I designed and built it myself, and it grows as I do.
 
-| Tool                                                  | Used for                                         |
-| ----------------------------------------------------- | ------------------------------------------------ |
-| [Astro 7](https://astro.build)                        | Static site framework (plain HTML output)        |
-| TypeScript (strict)                                   | Scripts and type-checked content                 |
-| Plain CSS + design tokens                             | All styling. No Tailwind or CSS-in-JS            |
-| [Lenis](https://github.com/darkroomengineering/lenis) | Smooth scrolling                                 |
-| GitHub Actions + GitHub Pages                         | Automatic build and deploy on every push to main |
+## Highlights
 
-Fonts: [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque) and
-[JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) via Google Fonts.
+- **One page, five sections.** Home, About, Education, Projects and Contact, with tabs that
+  glide to each section and track where you are as you scroll.
+- **Smooth, responsive motion.** Inertial scrolling, text that reveals as it scrolls into
+  view, and marquee bands that speed up and reverse with your scroll.
+- **A living centerpiece.** A lime blob that slowly morphs and leans toward your cursor. It
+  returns as the artwork on each project card.
+- **A header that gets out of the way.** It hides while you read and slides back when you
+  scroll up or reach for the top of the screen.
+- **Dark and light themes** that follow your system setting.
+- **Accessible by design.** Full keyboard support, WCAG AA contrast in both themes, and
+  animations that switch off for anyone who prefers reduced motion.
+- **Fast.** Static HTML with no framework running in the browser, deployed automatically on
+  every push.
 
-## Getting started
+## Built with
 
-Requires **Node.js 22.12 or newer**.
+| | |
+| --- | --- |
+| **Framework** | [Astro](https://astro.build) (static output) |
+| **Language** | TypeScript |
+| **Styling** | Hand-written CSS with design tokens |
+| **Motion** | [Lenis](https://github.com/darkroomengineering/lenis) smooth scrolling, native CSS and JavaScript animation |
+| **Type** | [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque) and [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) |
+| **Hosting** | GitHub Pages, deployed with GitHub Actions |
+
+## Run it locally
 
 ```bash
-npm install      # install dependencies
-npm run dev      # start the dev server
+npm install
+npm run dev
 ```
 
-The dev server runs at **http://localhost:4321/personal-portfolio/**, where the
-`/personal-portfolio/` part matches the GitHub Pages address. It reloads when you save
-a file. In Astro 7 it runs in the background, so stop it with `npx astro dev stop`.
+Then open http://localhost:4321/personal-portfolio/.
 
-| Command           | What it does                                          |
-| ----------------- | ----------------------------------------------------- |
-| `npm run dev`     | Start the local dev server                            |
-| `npm run build`   | Type-check (`astro check`), then build to `dist/`     |
-| `npm run preview` | Serve the built `dist/` folder locally                |
-| `npm run check`   | Type-check only                                       |
+## Contact
 
-## Project structure
+- **Email:** [gillg.dev@gmail.com](mailto:gillg.dev@gmail.com)
+- **LinkedIn:** [linkedin.com/in/gurnoor-gill-a33280431](https://www.linkedin.com/in/gurnoor-gill-a33280431/)
+- **Résumé:** [view PDF](https://gill-g.github.io/personal-portfolio/Resume_GurnoorGill.pdf)
 
-```text
-public/                  Files served as-is (favicon, résumé PDF)
-src/
-  config/
-    site.ts              Name, role, intro, email, links, résumé file
-    nav.ts               The sections shown in the header tabs
-  data/
-    about.ts             About section text, facts and toolkit
-    education.ts         Education timeline entries
-  content/projects/      One Markdown file per project
-  content.config.ts      The project fields and their types
-  components/
-    sections/            Hero, About, Education, Projects, Contact
-    Header.astro         Logo, tabs, résumé button, mobile menu
-    ...                  Smaller building blocks (Blob, Marquee, ProjectCard, ...)
-  layouts/BaseLayout.astro   The page shell: <head>, fonts, header, footer, scripts
-  pages/index.astro      The one page. It stacks the section components in order
-  scripts/               Browser behaviour: smooth scroll, nav, animations, copy button
-  styles/
-    tokens.css           Design tokens: colors, fonts, spacing, motion
-    global.css           Reset, base styles, reveal animations
-  utils/url.ts           withBase(): adds /personal-portfolio to /public file paths
-.github/workflows/deploy.yml   Builds and deploys to GitHub Pages
-```
+---
 
-## Updating content
-
-Personal details and page text live in data files, never inside the components.
-
-| To change...                                     | Edit                                  |
-| ------------------------------------------------ | ------------------------------------- |
-| Name, role, intro, status, email, social links   | `src/config/site.ts`                  |
-| About text, quick facts, toolkit                 | `src/data/about.ts`                   |
-| Education entries                                | `src/data/education.ts`               |
-| Tag line under a section title                   | `kicker` on its `SectionHeading`      |
-
-In the About lead, wrap words in `[square brackets]` to give them the volt highlight.
-
-### Résumé
-
-1. Put the PDF in `public/`.
-2. Set `links.resume` in `src/config/site.ts` to its file name, for example
-   `'Resume_GurnoorGill.pdf'`.
-
-The header button and the Contact link both update from that one setting. Set it to
-`''` to hide both.
-
-### Adding a project
-
-1. Copy `src/content/projects/_template.md` to a new file, such as `my-app.md`.
-   Files starting with `_` are ignored.
-2. Fill in the front matter:
-
-   ```yaml
-   title: My App
-   summary: One sentence on what it does and why it matters.
-   year: '2026'
-   order: 1 # lower numbers show first
-   status: shipped # shipped | in-progress | concept
-   tags: [TypeScript, React]
-   repo: https://github.com/Gill-G/my-app # optional
-   demo: https://my-app.example.com # optional
-   ```
-
-3. Save. The card appears in the Projects section by itself. The build fails with a clear
-   message if a field is missing or has the wrong type.
-
-Cards alternate between wide and narrow in a repeating pattern of four. Each card gets
-its own generated blob artwork.
-
-### Adding a section
-
-1. Create `src/components/sections/MySection.astro`. Use an existing section as the model:
-   a `<section id="my-section" tabindex="-1">` with a `SectionHeading`.
-2. Add it to `src/pages/index.astro` where it should appear.
-3. Add `{ id: 'my-section', label: 'My Section' }` to `src/config/nav.ts` to give it a tab.
-
-## Design system
-
-All visual values are tokens in `src/styles/tokens.css`. Components use only these
-tokens, so re-theming the site means editing one file.
-
-- **Palette "Volt":** ink `#0C0C0E`, bone `#ECE8DF` and a single acid-lime accent
-  `#D4FF3A`. Dark mode is the default look. Light mode swaps ink and bone, and uses an
-  olive shade of the accent for text and small marks so they keep enough contrast.
-- **Type:** Bricolage Grotesque, condensed and heavy for headlines and regular for body
-  text. JetBrains Mono for labels. Font sizes scale smoothly with the screen width.
-- **Spacing:** an 8pt grid (`--space-1` … `--space-10`).
-- **Motion:** 150–250ms transitions and longer reveal wipes. All of it switches off
-  under `prefers-reduced-motion`.
-
-## Deployment
-
-Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site with
-[`withastro/action`](https://github.com/withastro/action) and publishes it to GitHub
-Pages. A deploy takes about a minute. You can re-run one by hand from the **Actions** tab.
-
-The site is served from a sub-path, so `astro.config.mjs` sets
-`base: '/personal-portfolio'`:
-
-- Links to files in `public/` must go through `withBase()` from `src/utils/url.ts`.
-- In-page links like `#about` work as they are.
-
-## Roadmap
-
-- [ ] Replace the placeholder content (intro, About, Education, projects, email, links)
-- [ ] Project detail pages generated from each project's Markdown
-- [ ] Light/dark theme toggle
-- [ ] Custom domain or the shorter `gill-g.github.io` address
+© 2026 Gurnoor Gill. Design and content are my own. Please don't reuse them as-is.
