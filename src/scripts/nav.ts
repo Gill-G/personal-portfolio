@@ -3,7 +3,8 @@
  *  1. Highlights the tab for the section you're currently reading ("scroll spy").
  *  2. Slides the accent pill under that tab.
  *  3. Gives the header a backdrop once you've scrolled off the top.
- *  4. Opens and closes the full-screen menu on small screens.
+ *  4. Hides the header while scrolling down and brings it back on scroll up.
+ *  5. Opens and closes the full-screen menu on small screens.
  */
 import { lenis } from './smooth-scroll';
 
@@ -56,15 +57,77 @@ sections.forEach((section) => spy.observe(section));
 window.addEventListener('resize', () => setActive(currentId));
 document.fonts?.ready.then(() => setActive(currentId));
 
-/* ---- 3: header backdrop ---- */
+/* ---- 3 + 4: header backdrop, and hide on scroll down / show on scroll up ----
+ *
+ * Rules for when the header is hidden (data-hidden):
+ *  - Near the top of the page it is always shown.
+ *  - Scrolling down hides it; scrolling up shows it.
+ *  - Moving the mouse to the top of the screen shows it. Once the mouse has been
+ *    there, moving it away again hides it.
+ *  - It never hides while the mobile menu is open or a header link has keyboard focus.
+ */
 
-function updateHeader() {
-  header?.toggleAttribute('data-scrolled', window.scrollY > 8);
+// Ignore scroll movements smaller than this, so tiny wobbles don't flicker it.
+const SCROLL_THRESHOLD = 8;
+let lastScrollY = window.scrollY;
+let pointerInTopZone = false;
+
+function headerHeight() {
+  return header?.offsetHeight ?? 72;
 }
-window.addEventListener('scroll', updateHeader, { passive: true });
-updateHeader();
 
-/* ---- 4: small-screen menu ---- */
+function canHide() {
+  if (!header) return false;
+  const nearTop = window.scrollY < headerHeight();
+  const menuOpen = header.hasAttribute('data-menu-open');
+  // Only keyboard focus counts; a mouse click on a tab shouldn't pin the header open.
+  const focusInside = header.querySelector(':focus-visible') !== null;
+  return !nearTop && !menuOpen && !focusInside && !pointerInTopZone;
+}
+
+function setHidden(hidden: boolean) {
+  header?.toggleAttribute('data-hidden', hidden && canHide());
+}
+
+function onScroll() {
+  const y = window.scrollY;
+  header?.toggleAttribute('data-scrolled', y > 8);
+
+  const delta = y - lastScrollY;
+  if (Math.abs(delta) < SCROLL_THRESHOLD) return;
+  setHidden(delta > 0); // down = hide, up = show
+  lastScrollY = y;
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// Mouse only: touch screens have no hover, so they rely on the scroll rules above.
+if (window.matchMedia('(hover: hover)').matches) {
+  window.addEventListener(
+    'pointermove',
+    (event) => {
+      // The "top zone" is the header's area plus a little slack below it.
+      const inZone = event.clientY <= headerHeight() + 16;
+      if (inZone === pointerInTopZone) return;
+      pointerInTopZone = inZone;
+      if (inZone) setHidden(false);
+      else setHidden(true); // left the header area, so tuck it away again
+    },
+    { passive: true },
+  );
+
+  // Leaving the window through the top edge counts as leaving the zone too.
+  document.documentElement.addEventListener('pointerleave', () => {
+    if (!pointerInTopZone) return;
+    pointerInTopZone = false;
+    setHidden(true);
+  });
+}
+
+// Keyboard users: tabbing into the header always reveals it.
+header?.addEventListener('focusin', () => setHidden(false));
+
+/* ---- 5: small-screen menu ---- */
 
 const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-button]');
 const menu = document.getElementById('menu');
@@ -74,6 +137,7 @@ function setMenu(open: boolean) {
   menuButton.setAttribute('aria-expanded', String(open));
   menu.hidden = !open;
   header?.toggleAttribute('data-menu-open', open);
+  if (open) setHidden(false);
   // Freeze page scrolling behind the open menu.
   if (open) lenis?.stop();
   else lenis?.start();

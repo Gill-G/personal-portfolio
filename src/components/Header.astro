@@ -89,8 +89,20 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
     z-index: 50;
     transition:
       background-color var(--dur-base) var(--ease-out),
-      border-color var(--dur-base) var(--ease-out);
+      border-color var(--dur-base) var(--ease-out),
+      translate var(--dur-slow) var(--ease-out);
     border-bottom: var(--border-width) solid transparent;
+  }
+
+  /* Hidden while scrolling down (nav.ts). Slides up just past the top edge. */
+  .header[data-hidden] {
+    translate: 0 -100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .header {
+      transition: none;
+    }
   }
 
   /* Once scrolled, a frosted backdrop keeps the tabs readable over content. */
