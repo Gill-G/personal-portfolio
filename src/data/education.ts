@@ -1,5 +1,4 @@
 // Education entries, newest first.
-// TODO: replace these placeholders with your real schools and programs.
 
 export interface EducationEntry {
   period: string;
@@ -12,21 +11,25 @@ export interface EducationEntry {
 
 export const education: EducationEntry[] = [
   {
-    period: '20XX — Present',
-    school: 'School Name',
-    program: 'Program or Degree Name',
-    location: 'City, Country',
+    period: '2025 — 2028',
+    school: 'Sheridan College',
+    program: 'Advanced Diploma, Software Development & Network Engineering',
+    location: 'Oakville, Canada',
+    // Coursework from the résumé, grouped so the list stays short.
     details: [
-      'Placeholder: a highlight such as relevant coursework or a focus area.',
-      'Placeholder: an award, club, or role worth mentioning.',
+      'Software: Python Programming, Java OOP, JavaScript, HTML & CSS',
+      'Systems & cloud: AWS Cloud Computing, Linux OS, Networking Basics',
+      'Data: Database Design and Implementation',
     ],
     current: true,
   },
   {
-    period: '20XX — 20XX',
-    school: 'Previous School',
-    program: 'Diploma or Certificate',
-    location: 'City, Country',
-    details: ['Placeholder: one line about what you took away from it.'],
+    period: '2019 — 2020',
+    school: 'McMaster University',
+    program: 'Bachelor of Engineering (incomplete)',
+    location: 'Hamilton, Canada',
+    details: [
+      "I spent a year at McMaster University before I was truly ready, and I'm grateful for everything that year taught me about myself.",
+    ],
   },
 ];

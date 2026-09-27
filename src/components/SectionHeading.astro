@@ -8,9 +8,10 @@ interface Props {
   title: string;
   id: string; // id for the h2, used by the section's aria-labelledby
   kicker?: string; // short line under the title
+  kickerCite?: string; // if set, the kicker is shown as a quote credited to this
 }
 
-const { number, title, id, kicker } = Astro.props;
+const { number, title, id, kicker, kickerCite } = Astro.props;
 ---
 
 <header class="sh">
@@ -22,7 +23,14 @@ const { number, title, id, kicker } = Astro.props;
     </p>
     <h2 id={id} class="sh__title" data-reveal style="--reveal-delay: 80ms">{title}</h2>
     {
-      kicker && (
+      kicker && kickerCite && (
+        <p class="sh__kicker sh__kicker--quote" data-reveal style="--reveal-delay: 160ms">
+          &ldquo;{kicker}&rdquo; <span class="sh__cite mono">&mdash; {kickerCite}</span>
+        </p>
+      )
+    }
+    {
+      kicker && !kickerCite && (
         <p class="sh__kicker" data-reveal style="--reveal-delay: 160ms">
           {kicker}
         </p>
@@ -80,6 +88,17 @@ const { number, title, id, kicker } = Astro.props;
     margin-top: var(--space-4);
     font-size: var(--text-lg);
     color: var(--color-text-muted);
+  }
+
+  /* Quote version: one line, with the credit inline at the end in mono.
+     No width cap, so it stays on a single line wherever the screen allows. */
+  .sh__kicker--quote {
+    max-width: none;
+  }
+
+  .sh__cite {
+    margin-left: var(--space-2);
+    white-space: nowrap;
   }
 
   @media (min-width: 48rem) {
