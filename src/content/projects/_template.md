@@ -4,7 +4,7 @@ title: Project Title
 summary: One sentence on what it does and why it matters.
 year: '2026'
 order: 10
-status: in-progress # shipped | in-progress | concept
+# status: in-progress # optional: shipped | in-progress | concept
 tags: [Tag, Tag]
 # repo: https://github.com/you/project
 # demo: https://project.example.com

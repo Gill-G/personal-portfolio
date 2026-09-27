@@ -12,7 +12,8 @@ const projects = defineCollection({
     year: z.string(),
     // Lower numbers show first.
     order: z.number().default(100),
-    status: z.enum(['shipped', 'in-progress', 'concept']),
+    // Optional. Leave it out to hide the status label on the card.
+    status: z.enum(['shipped', 'in-progress', 'concept']).optional(),
     tags: z.array(z.string()).default([]),
     repo: z.url().optional(),
     demo: z.url().optional(),

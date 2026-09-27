@@ -18,7 +18,7 @@ export const site = {
   email: 'your.email@example.com',
   // Leave a link empty ('') to hide it.
   links: {
-    github: 'https://github.com/',
+    github: 'https://github.com/Gill-G',
     linkedin: 'https://www.linkedin.com/',
     // A file in /public that will be served as-is. Can be used to provide a downloadable resume.
     resume: 'Resume_GurnoorGill.pdf',

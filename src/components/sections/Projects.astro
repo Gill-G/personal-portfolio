@@ -6,7 +6,6 @@
 import { getCollection } from 'astro:content';
 import SectionHeading from '../SectionHeading.astro';
 import ProjectCard from '../ProjectCard.astro';
-import { site } from '../../config/site';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -17,22 +16,13 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
       number="03"
       title="Projects"
       id="projects-title"
-      kicker="Placeholder: a short line about the kind of things you build."
+      kicker="What I've built so far. The best is still ahead."
     />
 
     <div class="projects__grid">
       {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
     </div>
 
-    {
-      site.links.github && (
-        <p class="projects__more">
-          <a href={site.links.github} class="mono">
-            More on GitHub <span aria-hidden="true">→</span>
-          </a>
-        </p>
-      )
-    }
   </div>
 </section>
 
@@ -70,29 +60,13 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     .projects__grid > :global(:nth-child(4n + 2)) {
       margin-top: var(--space-10);
     }
-  }
 
-  .projects__more {
-    margin-top: var(--space-9);
-    text-align: center;
-  }
-
-  .projects__more a {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    min-height: 44px;
-    padding: var(--space-3) var(--space-6);
-    border: var(--border-width) solid var(--color-border-strong);
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    transition:
-      background-color var(--dur-base) var(--ease-out),
-      color var(--dur-base) var(--ease-out);
-  }
-
-  .projects__more a:hover {
-    background: var(--color-text);
-    color: var(--color-bg);
+    /* A card left alone on the last row (e.g. the 3rd of 3) spans the full
+       width with a wide, banner-shaped image instead of leaving a gap. */
+    .projects__grid > :global(:nth-child(4n + 1):last-child),
+    .projects__grid > :global(:nth-child(4n + 3):last-child) {
+      grid-column: 1 / -1;
+      --art-ratio: 21 / 9;
+    }
   }
 </style>

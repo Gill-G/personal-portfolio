@@ -30,10 +30,14 @@ const primaryLink = demo ?? repo;
 
   <div class="card__body">
     <div class="card__meta mono">
-      <span class={`card__status card__status--${status}`}>
-        <span class="card__status-icon" aria-hidden="true"></span>
-        {statusLabels[status]}
-      </span>
+      {
+        status && (
+          <span class={`card__status card__status--${status}`}>
+            <span class="card__status-icon" aria-hidden="true" />
+            {statusLabels[status]}
+          </span>
+        )
+      }
       <span>{year}</span>
     </div>
 
