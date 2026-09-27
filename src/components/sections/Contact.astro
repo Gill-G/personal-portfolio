@@ -6,8 +6,8 @@ import { withBase } from '../../utils/url';
 
 // Only links with a value are shown (see site.ts).
 const links = [
-  { label: 'GitHub', href: site.links.github },
   { label: 'LinkedIn', href: site.links.linkedin },
+  { label: 'GitHub', href: site.links.github },
   { label: 'Résumé', href: site.links.resume && withBase(site.links.resume) },
 ].filter((link) => link.href);
 ---
@@ -18,10 +18,24 @@ const links = [
   </div>
 
   <div class="container contact__inner">
-    <SectionHeading number="04" title="Contact" id="contact-title" />
+    <SectionHeading
+      number="04"
+      title="Contact"
+      id="contact-title"
+      kicker="Always open to chat 😁"
+    />
 
     <p class="contact__headline" data-reveal>
-      Let's build <span class="contact__outline">something</span> together.
+      Let's build <span class="contact__outline">something</span> great.
+    </p>
+
+    <p class="contact__availability mono" data-reveal style="--reveal-delay: 60ms">
+      <span class="contact__dot" aria-hidden="true"></span>
+      {site.availability}
+    </p>
+
+    <p class="contact__note" data-reveal style="--reveal-delay: 100ms">
+      The fastest way to reach me is email or LinkedIn.
     </p>
 
     <div class="contact__email-row" data-reveal style="--reveal-delay: 100ms">
@@ -82,9 +96,36 @@ const links = [
     mix-blend-mode: var(--hero-blend);
   }
 
+  /* Outlined word. Variable-font letters are built from overlapping shapes, so a
+     plain outline would also trace the lines inside them. Instead: a 2px stroke
+     painted first, then a background-colored fill on top that hides the inner lines
+     and half the stroke, leaving a clean 1px outer edge. */
   .contact__outline {
-    color: transparent;
-    -webkit-text-stroke: var(--border-width) var(--color-text);
+    color: var(--color-bg);
+    -webkit-text-stroke: calc(var(--border-width) * 2) var(--color-text);
+    paint-order: stroke fill;
+    letter-spacing: 0;
+  }
+
+  .contact__availability {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .contact__dot {
+    flex-shrink: 0;
+    width: var(--space-2);
+    height: var(--space-2);
+    background: var(--color-accent-mark);
+    border-radius: var(--radius-pill);
+  }
+
+  .contact__note {
+    margin-top: var(--space-8);
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
   }
 
   .contact__email-row {
@@ -92,7 +133,7 @@ const links = [
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-4);
-    margin-top: var(--space-8);
+    margin-top: var(--space-4);
   }
 
   .contact__email {

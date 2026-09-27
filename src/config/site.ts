@@ -15,11 +15,13 @@ export const site = {
   },
   location: 'City, Country',
   status: 'Open to internships',
-  email: 'your.email@example.com',
+  email: 'gillg.dev@gmail.com',
+  // Shown in the Contact section, next to a pulsing dot.
+  availability: 'Open to Winter 2027 internships · Greater Toronto Area / Remote',
   // Leave a link empty ('') to hide it.
   links: {
     github: 'https://github.com/Gill-G',
-    linkedin: 'https://www.linkedin.com/',
+    linkedin: 'https://www.linkedin.com/in/gurnoor-gill-a33280431/',
     // A file in /public that will be served as-is. Can be used to provide a downloadable resume.
     resume: 'Resume_GurnoorGill.pdf',
   },
