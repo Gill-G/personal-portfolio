@@ -21,6 +21,7 @@ Personal portfolio of **Gurnoor Gill**, designed and built from scratch.
 | Plain CSS + design tokens                             | All styling. No Tailwind or CSS-in-JS            |
 | [Lenis](https://github.com/darkroomengineering/lenis) | Smooth scrolling                                 |
 | GitHub Actions + GitHub Pages                         | Automatic build and deploy on every push to main |
+| [Vercel](https://vercel.com)                          | Second deploy, served from the domain root       |
 
 ## Technical highlights
 
@@ -72,10 +73,15 @@ src/
 
 ## Deployment
 
-Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and
-publishes it to GitHub Pages in about a minute. The site is served from the
-`/personal-portfolio` sub-path (set as `base` in `astro.config.mjs`), so links to files in
-`public/` go through the `withBase()` helper in `src/utils/url.ts`.
+The same code deploys to two places:
+
+- **GitHub Pages:** every push to `main` runs `.github/workflows/deploy.yml`, which builds
+  the site and publishes it at the `/personal-portfolio` sub-path.
+- **Vercel:** builds from the domain root. `astro.config.mjs` detects Vercel's build
+  environment (`VERCEL`) and switches `site` and `base` to match.
+
+Links to files in `public/` go through the `url()` helper in `src/utils/url.ts`, which adds
+the right base path for either deploy.
 
 ## Roadmap
 
