@@ -26,4 +26,7 @@ export const site = {
     resume: 'Resume_GurnoorGill.pdf',
   },
   description: 'Portfolio of Gurnoor Gill, software developer.',
+  // The main address. Both deploys (Vercel and the GitHub Pages backup) tell search
+  // engines this is the real site, so they don't compete as duplicates.
+  url: 'https://gillg.vercel.app',
 } as const;

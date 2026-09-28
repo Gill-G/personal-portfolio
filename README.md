@@ -2,7 +2,7 @@
 
 Personal portfolio of **Gurnoor Gill**, designed and built from scratch.
 
-**Live:** https://gill-g.github.io/personal-portfolio/
+**Live on** https://gillg.vercel.app/
 
 ## Features
 
@@ -20,8 +20,8 @@ Personal portfolio of **Gurnoor Gill**, designed and built from scratch.
 | TypeScript (strict)                                   | Scripts and type-checked content                 |
 | Plain CSS + design tokens                             | All styling. No Tailwind or CSS-in-JS            |
 | [Lenis](https://github.com/darkroomengineering/lenis) | Smooth scrolling                                 |
-| GitHub Actions + GitHub Pages                         | Automatic build and deploy on every push to main |
-| [Vercel](https://vercel.com)                          | Second deploy, served from the domain root       |
+| [Vercel](https://vercel.com)                          | Main deploy, at gillg.vercel.app                 |
+| GitHub Actions + GitHub Pages                         | Backup deploy on every push to main              |
 
 ## Technical highlights
 
@@ -75,10 +75,12 @@ src/
 
 The same code deploys to two places:
 
-- **GitHub Pages:** every push to `main` runs `.github/workflows/deploy.yml`, which builds
-  the site and publishes it at the `/personal-portfolio` sub-path.
-- **Vercel:** builds from the domain root. `astro.config.mjs` detects Vercel's build
-  environment (`VERCEL`) and switches `site` and `base` to match.
+- **Vercel (main):** builds on every push and serves the site from the domain root at
+  https://gillg.vercel.app/. `astro.config.mjs` detects Vercel's build environment
+  (`VERCEL`) and switches `site` and `base` to match.
+- **GitHub Pages (backup):** every push to `main` runs `.github/workflows/deploy.yml`,
+  which publishes a copy at the `/personal-portfolio` sub-path. Its canonical links point
+  to the Vercel address, so search engines treat Vercel as the real site.
 
 Links to files in `public/` go through the `url()` helper in `src/utils/url.ts`, which adds
 the right base path for either deploy.
@@ -87,7 +89,6 @@ the right base path for either deploy.
 
 - [ ] Project detail pages generated from each project's Markdown
 - [ ] Light/dark theme toggle
-- [ ] Custom domain or the shorter `gill-g.github.io` address
 
 ## Contact
 
