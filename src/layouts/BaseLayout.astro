@@ -33,6 +33,13 @@ const canonical = new URL(Astro.url.pathname.slice(basePath.length) || '/', site
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <!-- Thumbnail for link previews (LinkedIn, Slack...): public/og-image.png, 1200 x 627.
+         Always an absolute URL on the main site, since link-preview tools require one. -->
+    <meta property="og:image" content={`${site.url}/og-image.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <meta property="og:image:alt" content={`${site.name}'s portfolio home screen`} />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Fonts: Bricolage Grotesque (display + body, variable width) and JetBrains Mono (labels). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
