@@ -11,6 +11,11 @@ interface Props {
 }
 
 const { title = site.title, description = site.description } = Astro.props;
+
+// Vercel sets VERCEL=1 during its builds. Analytics only exists there, so the GitHub
+// Pages backup leaves the script out instead of requesting a file that isn't there.
+const onVercel = Boolean(process.env.VERCEL);
+
 // Point search engines at the main site (site.url), whichever deploy served this page.
 // Strip the deploy's base path first: '/personal-portfolio/' on GitHub Pages becomes '/'.
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -54,6 +59,19 @@ const canonical = new URL(Astro.url.pathname.slice(basePath.length) || '/', site
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
+
+    <!-- Vercel Web Analytics (enabled in the Vercel dashboard). Vercel serves the script
+         itself, so there's no npm package. The first line queues events until it loads. -->
+    {
+      onVercel && (
+        <>
+          <script is:inline>
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          </script>
+          <script is:inline defer src="/_vercel/insights/script.js"></script>
+        </>
+      )
+    }
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
