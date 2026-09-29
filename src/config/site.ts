@@ -25,6 +25,8 @@ export const site = {
     // A file in /public that will be served as-is. Can be used to provide a downloadable resume.
     resume: 'Resume_GurnoorGill.pdf',
   },
+  // Browser tab title, and the headline of link previews (LinkedIn, Slack, iMessage...).
+  title: 'Gurnoor Gill: Personal Portfolio',
   description: 'Portfolio of Gurnoor Gill, software developer.',
   // The main address. Both deploys (Vercel and the GitHub Pages backup) tell search
   // engines this is the real site, so they don't compete as duplicates.
