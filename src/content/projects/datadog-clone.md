@@ -4,6 +4,7 @@ summary: A lightweight infrastructure monitoring app that collects CPU, memory a
 year: '2026'
 order: 2
 tags: [JavaScript, Node.js, Express]
+logo: ../../assets/projects/datadog-clone.png
 ---
 
 - Exposed collected metrics through a REST API built with Node.js and Express, and rendered them on a live-updating dashboard.

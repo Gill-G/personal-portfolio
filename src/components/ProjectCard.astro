@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { project, index } = Astro.props;
-const { title, summary, year, status, tags, repo, demo } = project.data;
+const { title, summary, year, status, tags, repo, demo, logo } = project.data;
 
 // Status is shown as text plus a shape, never by color alone.
 const statusLabels = {
@@ -24,7 +24,7 @@ const primaryLink = demo ?? repo;
 
 <article class="card" data-reveal style={`--reveal-delay: ${(index % 2) * 100}ms`}>
   <div class="card__art">
-    <ProjectArt seed={index * 2.1 + 0.7} />
+    <ProjectArt seed={index * 2.1 + 0.7} logo={logo} />
     <span class="card__num mono">P—{number}</span>
   </div>
 

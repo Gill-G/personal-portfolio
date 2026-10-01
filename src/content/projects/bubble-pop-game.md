@@ -4,6 +4,7 @@ summary: An interactive browser game with animated bubbles, sprite-sheet pop eff
 year: '2026'
 order: 3
 tags: [JavaScript, ZIM.js, HTML5 Canvas]
+logo: ../../assets/projects/bubble-pop-game.png
 ---
 
 - Developed with the ZIM.js canvas framework, with animated bubbles, sprite-sheet pop effects, and randomized audio.

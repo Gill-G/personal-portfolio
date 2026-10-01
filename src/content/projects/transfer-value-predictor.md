@@ -4,6 +4,7 @@ summary: A machine learning model that predicts a football player's market value
 year: '2026'
 order: 1
 tags: [Python, pandas, scikit-learn, matplotlib, REST API]
+logo: ../../assets/projects/transfer-value-predictor.png
 ---
 
 - Pulled multi-season player statistics from the football-data.org API with the requests library, then cleaned and merged the data using pandas.

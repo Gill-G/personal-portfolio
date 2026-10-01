@@ -8,6 +8,7 @@ order: 10
 tags: [Tag, Tag]
 # repo: https://github.com/you/project
 # demo: https://project.example.com
+# logo: ../../assets/projects/my-app.png # optional; replaces the blob
 ---
 
 Longer write-up goes here (used later for a project detail page).

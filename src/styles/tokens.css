@@ -40,6 +40,11 @@
      In light mode ink-on-volt already contrasts, so no blending is needed. */
   --hero-blend: normal;
   --grain-opacity: 0.05;
+  /* Project logo panels stay dark in both themes: the logos are designed for a dark
+     background, so the panel reads as a small screen. Not redefined for dark mode. */
+  --art-screen-bg: var(--ink-900);
+  --art-screen-line: color-mix(in srgb, var(--bone-100) 9%, transparent);
+  --art-screen-ring: color-mix(in srgb, var(--bone-100) 50%, transparent);
 
   /* ---- Typography ---- */
   --font-display: 'Bricolage Grotesque', 'Arial Narrow', system-ui, sans-serif;
