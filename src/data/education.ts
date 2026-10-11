@@ -26,7 +26,7 @@ export const education: EducationEntry[] = [
   {
     period: '2019 — 2020',
     school: 'McMaster University',
-    program: 'Bachelor of Engineering (incomplete)',
+    program: 'Bachelor of Engineering (Incomplete)',
     location: 'Hamilton, Canada',
     details: [
       "I spent a year at McMaster University before I was truly ready, and I'm grateful for everything that year taught me about myself.",
