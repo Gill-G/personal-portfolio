@@ -62,9 +62,6 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
             aria-current={onResumePage ? 'page' : undefined}
           >
             Résumé
-            <span class="resume__arrow" aria-hidden="true">
-              ↗
-            </span>
           </a>
         )
       }
@@ -217,9 +214,15 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
   .resume {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
+    justify-content: center;
     min-height: 44px;
-    padding: 0 var(--space-5);
+    /* Mono labels have letter-spacing, which leaves a small invisible gap after the
+       last letter. Taking it off the right padding keeps the word truly centered. */
+    padding: 0 calc(var(--space-5) - var(--tracking-label)) 0 var(--space-5);
+    /* All-caps text rides ~1px high (fonts keep room below for letters like g and p).
+       2px of top padding moves the centered word down 1px, to true optical center. */
+    padding-top: calc(var(--border-width) * 2);
+    font-weight: 700;
     background: var(--color-text);
     color: var(--color-bg);
     border-radius: var(--radius-pill);
@@ -237,14 +240,6 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
 
   .resume:active {
     scale: 0.97;
-  }
-
-  .resume__arrow {
-    transition: translate var(--dur-base) var(--ease-out);
-  }
-
-  .resume:hover .resume__arrow {
-    translate: 2px -2px;
   }
 
   /* ---- Small-screen menu ---- */

@@ -52,9 +52,11 @@ const links = [
       {
         links.map((link) => (
           <li>
-            <a href={link.href} class="mono">
+            {/* Opens in a new tab, so visitors keep the portfolio open behind it. */}
+            <a href={link.href} class="mono" target="_blank" rel="noopener">
               {link.label}
               <span aria-hidden="true">↗</span>
+              <span class="visually-hidden"> (opens in a new tab)</span>
             </a>
           </li>
         ))
