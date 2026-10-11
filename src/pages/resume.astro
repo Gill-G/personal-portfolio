@@ -1,0 +1,235 @@
+---
+/*
+ * Résumé page. Same header and footer as the home page (BaseLayout).
+ *
+ * The résumé is shown as an image of each PDF page (in src/assets/resume/), drawn
+ * on a white "sheet", so it scrolls with the page like paper. The images are made
+ * from the PDF ahead of time; resume.json records the links in the PDF (so they stay
+ * clickable) and a fingerprint of the PDF the images were made from.
+ *
+ * Updating the résumé: replace public/Resume_GurnoorGill.pdf, then re-render the
+ * images (ask Claude). Until then the build prints a warning, because the page
+ * would still show the old version.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+import { url } from '../utils/url';
+import resume from '../assets/resume/resume.json';
+
+const pdf = url(site.links.resume);
+
+// Match each page entry in resume.json with its image file.
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/resume/*.png', {
+  eager: true,
+});
+const pages = resume.pages.map((page) => ({
+  ...page,
+  src: images[`../assets/resume/${page.image}`].default,
+}));
+
+// Out-of-date check: compare the PDF's fingerprint with the one the images were made from.
+const pdfHash = createHash('sha256')
+  .update(readFileSync(`${process.cwd()}/public/${site.links.resume}`))
+  .digest('hex');
+if (pdfHash !== resume.pdfHash) {
+  console.warn(
+    `\n[résumé] public/${site.links.resume} has changed since the résumé images were ` +
+      `rendered (${resume.renderedAt}). The résumé page still shows the old version: ` +
+      `re-render the images in src/assets/resume/.\n`,
+  );
+}
+---
+
+<BaseLayout
+  title={`Résumé — ${site.name}`}
+  description={`Résumé of ${site.name}: ${site.role}.`}
+>
+  <section class="rp" aria-labelledby="resume-title">
+    <div class="container">
+      <header class="rp__head">
+        <p class="rp__eyebrow mono">
+          <span class="rp__dot" aria-hidden="true"></span>
+          Résumé
+        </p>
+        <h1 id="resume-title" class="rp__title">{site.name}</h1>
+
+        <div class="rp__row">
+          <p class="rp__intro">
+            {site.role}. The full résumé is below, and the PDF is one click away.
+          </p>
+          <div class="rp__actions">
+            <a class="rp__download mono" href={pdf} download>
+              <span aria-hidden="true">↓</span>
+              Download PDF
+            </a>
+            <a class="rp__open mono" href={pdf} target="_blank" rel="noopener">
+              Open in new tab <span aria-hidden="true">↗</span>
+              <span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div class="rp__sheet">
+        {
+          pages.map((page, i) => (
+            <div class="rp__page">
+              <Image
+                src={page.src}
+                alt={`${site.name}'s résumé${pages.length > 1 ? `, page ${i + 1}` : ''}. Download the PDF for a text version.`}
+                widths={[480, 800, 1200, 1800, 2448]}
+                sizes="(min-width: 60rem) 56rem, calc(100vw - 2rem)"
+                quality={90}
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+              {/* Clickable areas placed over the PDF's own links (positions in %). */}
+              {page.links.map((link) => (
+                <a
+                  class="rp__link"
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={link.url.replace(/^mailto:/, '')}
+                  style={`left:${link.left}%; top:${link.top}%; width:${link.width}%; height:${link.height}%`}
+                />
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .rp {
+    padding-top: calc(var(--header-h) + var(--space-8));
+    padding-bottom: var(--space-section);
+  }
+
+  /* ---- Intro ---- */
+
+  .rp__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  .rp__dot {
+    width: var(--space-2);
+    height: var(--space-2);
+    background: var(--color-accent-mark);
+    border-radius: var(--radius-pill);
+  }
+
+  .rp__title {
+    margin-top: var(--space-3);
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+  }
+
+  .rp__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-5) var(--space-7);
+    margin-top: var(--space-5);
+  }
+
+  .rp__intro {
+    max-width: 44ch;
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .rp__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+  }
+
+  /* Primary action: the volt pill. */
+  .rp__download {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    padding: 0 var(--space-5);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out),
+      scale var(--dur-fast) var(--ease-out);
+  }
+
+  .rp__download:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
+
+  .rp__download:active {
+    scale: 0.97;
+  }
+
+  .rp__open {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .rp__open:hover {
+    color: var(--color-text);
+  }
+
+  /* ---- The sheet of paper ---- */
+
+  .rp__sheet {
+    max-width: 56rem;
+    margin: var(--space-8) auto 0;
+    background: var(--paper);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-paper);
+    overflow: hidden;
+  }
+
+  .rp__page {
+    position: relative;
+  }
+
+  .rp__page + .rp__page {
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .rp__page :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .rp__link {
+    position: absolute;
+    border-radius: var(--border-width);
+    transition: background-color var(--dur-fast) var(--ease-out);
+  }
+
+  .rp__link:hover {
+    background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+</style>

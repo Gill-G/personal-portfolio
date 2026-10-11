@@ -11,11 +11,17 @@ import { site } from '../config/site';
 import { url } from '../utils/url';
 
 const number = (i: number) => String(i + 1).padStart(2, '0');
+
+// Links point at the home page's sections (e.g. /#about), so they also work from
+// other pages like /resume/. On the home page they still glide (smooth-scroll.ts).
+const home = (hash: string) => url(`#${hash}`);
+const resumePage = url('resume/');
+const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replace(/\/$/, '');
 ---
 
 <header class="header" data-header>
   <div class="header__inner container">
-    <a href="#home" class="header__logo" aria-label={`${site.name}, back to top`}>
+    <a href={home('home')} class="header__logo" aria-label={`${site.name}, back to top`}>
       <Logo />
     </a>
 
@@ -25,7 +31,7 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
           {
             sections.map((section, i) => (
               <li>
-                <a href={`#${section.id}`} class="tab" data-tab={section.id}>
+                <a href={home(section.id)} class="tab" data-tab={section.id}>
                   <span class="tab__num" aria-hidden="true">
                     {number(i)}
                   </span>
@@ -50,12 +56,15 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
 
       {
         site.links.resume && (
-          <a href={url(site.links.resume)} class="resume mono" target="_blank" rel="noopener">
+          <a
+            href={resumePage}
+            class="resume mono"
+            aria-current={onResumePage ? 'page' : undefined}
+          >
             Résumé
             <span class="resume__arrow" aria-hidden="true">
               ↗
             </span>
-            <span class="visually-hidden"> (opens in a new tab)</span>
           </a>
         )
       }
@@ -68,7 +77,7 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
       {
         sections.map((section, i) => (
           <li>
-            <a href={`#${section.id}`} class="menu__link" data-tab={section.id}>
+            <a href={home(section.id)} class="menu__link" data-tab={section.id}>
               <span class="mono">{number(i)}</span>
               {section.label}
             </a>

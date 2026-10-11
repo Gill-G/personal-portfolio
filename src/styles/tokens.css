@@ -45,6 +45,9 @@
   --art-screen-bg: var(--ink-900);
   --art-screen-line: color-mix(in srgb, var(--bone-100) 9%, transparent);
   --art-screen-ring: color-mix(in srgb, var(--bone-100) 50%, transparent);
+  /* Résumé page: the document is shown as a white sheet of paper in both themes. */
+  --paper: #ffffff;
+  --shadow-paper: 0 24px 64px color-mix(in srgb, var(--ink-950) 35%, transparent);
 
   /* ---- Typography ---- */
   --font-display: 'Bricolage Grotesque', 'Arial Narrow', system-ui, sans-serif;

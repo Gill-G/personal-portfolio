@@ -65,7 +65,7 @@ src/
   content/projects/  One Markdown file per project
   components/        Page sections and reusable building blocks
   layouts/           The page shell
-  pages/             Routes (the site is a single page)
+  pages/             Routes: the one-page home and the résumé page
   scripts/           Browser behaviour: scrolling, navigation, animation
   styles/            Design tokens and global styles
 .github/workflows/   Build and deploy pipeline

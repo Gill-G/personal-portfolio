@@ -1,0 +1,41 @@
+{
+  "pdfHash": "c88a9d123d260f18518852ab8079d2bc43fd49461c3d1289212939e85e3d2abd",
+  "renderedAt": "2026-10-10",
+  "pages": [
+    {
+      "image": "resume-page-1.png",
+      "width": 2448,
+      "height": 3168,
+      "links": [
+        {
+          "url": "mailto:gillg.dev@gmail.com",
+          "left": 26.217,
+          "top": 5.432,
+          "width": 14.75,
+          "height": 1.761
+        },
+        {
+          "url": "https://www.linkedin.com/in/gill-g/",
+          "left": 42.179,
+          "top": 5.432,
+          "width": 15.791,
+          "height": 1.761
+        },
+        {
+          "url": "https://github.com/gill-g",
+          "left": 59.182,
+          "top": 5.432,
+          "width": 12.58,
+          "height": 1.761
+        },
+        {
+          "url": "https://gillg.vercel.app/",
+          "left": 72.974,
+          "top": 5.432,
+          "width": 10.911,
+          "height": 1.761
+        }
+      ]
+    }
+  ]
+}
