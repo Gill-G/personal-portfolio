@@ -93,5 +93,5 @@ the right base path for either deploy.
 ## Contact
 
 [gillg.dev@gmail.com](mailto:gillg.dev@gmail.com) ·
-[LinkedIn](https://www.linkedin.com/in/gurnoor-gill-a33280431/) ·
+[LinkedIn](https://www.linkedin.com/in/gill-g/) ·
 [GitHub](https://github.com/Gill-G)

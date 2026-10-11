@@ -63,7 +63,16 @@ if (pdfHash !== resume.pdfHash) {
           </p>
           <div class="rp__actions">
             <a class="rp__download mono" href={pdf} download>
-              <span aria-hidden="true">↓</span>
+              <!-- Download icon: an arrow dropping into a tray. Drawn with the
+                   text color (currentColor), so it changes with the button. -->
+              <svg
+                class="rp__icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M12 3v12M7 10l5 5 5-5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path>
+              </svg>
               Download PDF
             </a>
             <a class="rp__open mono" href={pdf} target="_blank" rel="noopener">
@@ -148,7 +157,7 @@ if (pdfHash !== resume.pdfHash) {
 
   .rp__intro {
     max-width: 44ch;
-    font-size: var(--text-lg);
+    font-size: var(--text-md);
     color: var(--color-text-muted);
   }
 
@@ -159,31 +168,43 @@ if (pdfHash !== resume.pdfHash) {
     gap: var(--space-3) var(--space-5);
   }
 
-  /* Primary action: the volt pill. */
+  /* Primary action: an outlined, slightly rounded button. Bright accent outline, a dark
+     fill with a faint accent tint, light text. In light mode the accent switches to its
+     olive shade (--color-accent-mark), since volt is too faint on the bone background. */
   .rp__download {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-3);
     min-height: 44px;
     padding: 0 var(--space-5);
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-accent-mark) 10%, var(--color-bg));
+    color: var(--color-text);
+    border: var(--border-width) solid var(--color-accent-mark);
+    border-radius: var(--radius-sm);
     text-decoration: none;
     transition:
       background-color var(--dur-base) var(--ease-out),
-      color var(--dur-base) var(--ease-out),
       scale var(--dur-fast) var(--ease-out);
   }
 
   .rp__download:hover {
-    background: var(--color-text);
-    color: var(--color-bg);
+    background: color-mix(in srgb, var(--color-accent-mark) 22%, var(--color-bg));
   }
 
   .rp__download:active {
     scale: 0.97;
   }
+
+  .rp__icon {
+    width: 1.25em;
+    height: 1.25em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
 
   .rp__open {
     display: inline-flex;

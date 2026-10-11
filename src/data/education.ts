@@ -13,7 +13,7 @@ export const education: EducationEntry[] = [
   {
     period: '2025 — 2028',
     school: 'Sheridan College',
-    program: 'Advanced Diploma, Software Development & Network Engineering',
+    program: 'Advanced Diploma, Software Development & Network Engineering (Co-op)',
     location: 'Oakville, Canada',
     // Coursework from the résumé, grouped so the list stays short.
     details: [

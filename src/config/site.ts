@@ -21,7 +21,7 @@ export const site = {
   // Leave a link empty ('') to hide it.
   links: {
     github: 'https://github.com/Gill-G',
-    linkedin: 'https://www.linkedin.com/in/gurnoor-gill-a33280431/',
+    linkedin: 'https://www.linkedin.com/in/gill-g/',
     // A file in /public that will be served as-is. Can be used to provide a downloadable resume.
     resume: 'Resume_GurnoorGill.pdf',
   },
