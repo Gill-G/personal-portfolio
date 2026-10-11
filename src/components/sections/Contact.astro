@@ -107,11 +107,13 @@ const links = [
     letter-spacing: 0;
   }
 
+  /* Two groups: the pitch (headline + availability) and how to reach me (note,
+     email, links). Tight spacing inside each group, a clear break between them. */
   .contact__availability {
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    margin-top: var(--space-6);
+    margin-top: var(--space-5);
   }
 
   .contact__dot {
@@ -123,7 +125,7 @@ const links = [
   }
 
   .contact__note {
-    margin-top: var(--space-8);
+    margin-top: var(--space-9);
     font-size: var(--text-lg);
     color: var(--color-text-muted);
   }
@@ -176,7 +178,7 @@ const links = [
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2) var(--space-6);
-    margin-top: var(--space-7);
+    margin-top: var(--space-5);
   }
 
   .contact__links a {

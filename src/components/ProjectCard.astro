@@ -103,6 +103,24 @@ const primaryLink = demo ?? repo;
     border-radius: var(--radius-pill);
   }
 
+  /* Text under the art: year → title → summary → tags, spaced on the 8pt grid. */
+  .card__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card__title {
+    margin-top: var(--space-2);
+  }
+
+  .card__summary {
+    margin-top: var(--space-3);
+  }
+
+  .card__tags {
+    margin-top: var(--space-4);
+  }
+
   .card__meta {
     display: flex;
     justify-content: space-between;
@@ -186,6 +204,7 @@ const primaryLink = demo ?? repo;
 
   /* The secondary link sits above the stretched link so it stays clickable. */
   .card__secondary {
+    margin-top: var(--space-3);
     position: relative;
     z-index: 2;
   }

@@ -9,7 +9,15 @@ interface Props {
 }
 
 const { words } = Astro.props;
-// The words are rendered twice so the band can loop seamlessly.
+
+// One "copy" must be wider than the screen, or the band runs out of words and
+// shows a blank gap before it loops. Repeat short word lists until a copy has at
+// least 16 words: wide enough for a 4K screen even at the largest font size.
+const MIN_WORDS_PER_COPY = 16;
+const repeats = Math.ceil(MIN_WORDS_PER_COPY / words.length);
+const copyWords = Array.from({ length: repeats }, () => words).flat();
+
+// The copy is rendered twice so the band can loop seamlessly.
 const copies = [0, 1];
 ---
 
@@ -17,7 +25,7 @@ const copies = [0, 1];
   <div class="marquee__track" data-marquee-track>
     {
       copies.map(() =>
-        words.map((word) => (
+        copyWords.map((word) => (
           <span class="marquee__item">
             <span class="marquee__word">{word}</span>
             <span class="marquee__star">✦</span>
