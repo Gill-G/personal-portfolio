@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ScrollProgress from '../components/ScrollProgress.astro';
 import { site } from '../config/site';
 import { url } from '../utils/url';
 
@@ -75,6 +76,7 @@ const canonical = new URL(Astro.url.pathname.slice(basePath.length) || '/', site
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <ScrollProgress />
     <Header />
     <main id="main" tabindex="-1">
       <slot />
