@@ -6,11 +6,11 @@
 import { blobPath } from '../scripts/blob-shape';
 
 interface Props {
-  seed?: number;
+  seed: number;
   follow?: boolean;
 }
 
-const { seed = 1, follow = false } = Astro.props;
+const { seed, follow = false } = Astro.props;
 ---
 
 <svg

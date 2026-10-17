@@ -9,6 +9,7 @@
 
 const SIZE = 200; // Every blob is drawn in a 200 x 200 SVG viewBox.
 const CENTER = SIZE / 2;
+const POINTS = 8; // How many points sit around the circle before smoothing.
 
 type Point = [number, number];
 
@@ -40,12 +41,12 @@ function smoothClosedPath(points: Point[]): string {
  * @param seed  Any number. Different seeds give different shapes.
  * @param time  Seconds. Keep it at 0 for a static shape.
  */
-export function blobPath(seed: number, time = 0, points = 8): string {
+export function blobPath(seed: number, time = 0): string {
   const radius = SIZE * 0.36;
   const coords: Point[] = [];
 
-  for (let i = 0; i < points; i++) {
-    const angle = (i / points) * Math.PI * 2;
+  for (let i = 0; i < POINTS; i++) {
+    const angle = (i / POINTS) * Math.PI * 2;
     // Two sine waves at different speeds give a slow, organic, never-repeating wobble.
     const wobble =
       0.14 * Math.sin(time * 0.55 + i * 1.7 + seed) +
