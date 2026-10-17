@@ -86,6 +86,7 @@
   --measure: 62ch; /* comfortable reading width */
   --gutter: clamp(var(--space-4), 4vw, var(--space-7));
   --header-h: 4.5rem; /* 72px */
+  --touch-target: 44px; /* minimum height of anything you tap or click */
 
   /* ---- Shape ---- */
   --radius-sm: 0.5rem;
