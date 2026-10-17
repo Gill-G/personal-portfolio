@@ -1,0 +1,7 @@
+# Generated or third-party files: never hand-formatted.
+dist/
+.astro/
+node_modules/
+package-lock.json
+# Static files served as-is (PDF, images, favicon).
+public/
