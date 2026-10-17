@@ -14,35 +14,33 @@ import { education } from '../../data/education';
     />
 
     <ol role="list" class="timeline">
-      {
-        education.map((entry, i) => (
-          <li class="entry" data-reveal style={`--reveal-delay: ${i * 100}ms`}>
-            <p class="entry__period mono">
-              {entry.period}
-              {entry.current && (
-                <span class="entry__current">
-                  <span class="entry__dot" aria-hidden="true" />
-                  Current
-                </span>
-              )}
-            </p>
+      {education.map((entry, i) => (
+        <li class="entry" data-reveal style={`--reveal-delay: ${i * 100}ms`}>
+          <p class="entry__period mono">
+            {entry.period}
+            {entry.current && (
+              <span class="entry__current">
+                <span class="entry__dot" aria-hidden="true" />
+                Current
+              </span>
+            )}
+          </p>
 
-            <div class="entry__main">
-              <h3 class="entry__school">{entry.school}</h3>
-              <p class="entry__program">{entry.program}</p>
-            </div>
+          <div class="entry__main">
+            <h3 class="entry__school">{entry.school}</h3>
+            <p class="entry__program">{entry.program}</p>
+          </div>
 
-            <div class="entry__side">
-              <p class="entry__location mono">{entry.location}</p>
-              <ul role="list" class="entry__details">
-                {entry.details.map((detail) => (
-                  <li>{detail}</li>
-                ))}
-              </ul>
-            </div>
-          </li>
-        ))
-      }
+          <div class="entry__side">
+            <p class="entry__location mono">{entry.location}</p>
+            <ul role="list" class="entry__details">
+              {entry.details.map((detail) => (
+                <li>{detail}</li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))}
     </ol>
   </div>
 </section>

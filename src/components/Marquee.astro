@@ -23,16 +23,14 @@ const copies = [0, 1];
 
 <div class="marquee" aria-hidden="true" data-marquee>
   <div class="marquee__track" data-marquee-track>
-    {
-      copies.map(() =>
-        copyWords.map((word) => (
-          <span class="marquee__item">
-            <span class="marquee__word">{word}</span>
-            <span class="marquee__star">✦</span>
-          </span>
-        )),
-      )
-    }
+    {copies.map(() =>
+      copyWords.map((word) => (
+        <span class="marquee__item">
+          <span class="marquee__word">{word}</span>
+          <span class="marquee__star">✦</span>
+        </span>
+      )),
+    )}
   </div>
 </div>
 

@@ -30,45 +30,41 @@ const primaryLink = demo ?? repo;
 
   <div class="card__body">
     <div class="card__meta mono">
-      {
-        status && (
-          <span class={`card__status card__status--${status}`}>
-            <span class="card__status-icon" aria-hidden="true" />
-            {statusLabels[status]}
-          </span>
-        )
-      }
+      {status && (
+        <span class={`card__status card__status--${status}`}>
+          <span class="card__status-icon" aria-hidden="true" />
+          {statusLabels[status]}
+        </span>
+      )}
       <span>{year}</span>
     </div>
 
     <h3 class="card__title">
-      {
-        primaryLink ? (
-          <a href={primaryLink} class="card__link">
-            {title}
-            <span class="card__arrow" aria-hidden="true">
-              ↗
-            </span>
-          </a>
-        ) : (
-          title
-        )
-      }
+      {primaryLink ? (
+        <a href={primaryLink} class="card__link">
+          {title}
+          <span class="card__arrow" aria-hidden="true">
+            ↗
+          </span>
+        </a>
+      ) : (
+        title
+      )}
     </h3>
 
     <p class="card__summary">{summary}</p>
 
     <ul role="list" class="card__tags">
-      {tags.map((tag) => <li class="mono">{tag}</li>)}
+      {tags.map((tag) => (
+        <li class="mono">{tag}</li>
+      ))}
     </ul>
 
-    {
-      repo && demo && (
-        <p class="card__secondary mono">
-          <a href={repo}>Source code</a>
-        </p>
-      )
-    }
+    {repo && demo && (
+      <p class="card__secondary mono">
+        <a href={repo}>Source code</a>
+      </p>
+    )}
   </div>
 </article>
 

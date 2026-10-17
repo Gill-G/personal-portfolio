@@ -28,18 +28,16 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
     <div class="header__actions">
       <nav aria-label="Sections">
         <ul role="list" class="tabs" data-tabs data-pill="off">
-          {
-            sections.map((section, i) => (
-              <li>
-                <a href={home(section.id)} class="tab" data-tab={section.id}>
-                  <span class="tab__num" aria-hidden="true">
-                    {number(i)}
-                  </span>
-                  {section.label}
-                </a>
-              </li>
-            ))
-          }
+          {sections.map((section, i) => (
+            <li>
+              <a href={home(section.id)} class="tab" data-tab={section.id}>
+                <span class="tab__num" aria-hidden="true">
+                  {number(i)}
+                </span>
+                {section.label}
+              </a>
+            </li>
+          ))}
         </ul>
 
         <button
@@ -54,33 +52,25 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
         </button>
       </nav>
 
-      {
-        site.links.resume && (
-          <a
-            href={resumePage}
-            class="resume mono"
-            aria-current={onResumePage ? 'page' : undefined}
-          >
-            Résumé
-          </a>
-        )
-      }
+      {site.links.resume && (
+        <a href={resumePage} class="resume mono" aria-current={onResumePage ? 'page' : undefined}>
+          Résumé
+        </a>
+      )}
     </div>
   </div>
 
   <!-- Small-screen menu. Hidden until the Menu button opens it. -->
   <div id="menu" class="menu" hidden>
     <ul role="list" class="menu__list container">
-      {
-        sections.map((section, i) => (
-          <li>
-            <a href={home(section.id)} class="menu__link" data-tab={section.id}>
-              <span class="mono">{number(i)}</span>
-              {section.label}
-            </a>
-          </li>
-        ))
-      }
+      {sections.map((section, i) => (
+        <li>
+          <a href={home(section.id)} class="menu__link" data-tab={section.id}>
+            <span class="mono">{number(i)}</span>
+            {section.label}
+          </a>
+        </li>
+      ))}
     </ul>
     <p class="menu__footer container mono">
       <a href={`mailto:${site.email}`}>{site.email}</a>

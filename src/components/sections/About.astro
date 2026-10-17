@@ -18,28 +18,26 @@ const leadParts = about.lead.split(/\[|\]/);
       </p>
 
       <dl class="about__facts" data-reveal>
-        {
-          about.facts.map((fact) => (
-            <div class="about__fact">
-              <dt class="mono">{fact.label}</dt>
-              <dd>{fact.value}</dd>
-            </div>
-          ))
-        }
+        {about.facts.map((fact) => (
+          <div class="about__fact">
+            <dt class="mono">{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))}
       </dl>
 
       <div class="about__body">
-        {
-          about.body.map((paragraph, i) => (
-            <p data-reveal style={`--reveal-delay: ${i * 80}ms`}>
-              {paragraph}
-            </p>
-          ))
-        }
+        {about.body.map((paragraph, i) => (
+          <p data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+            {paragraph}
+          </p>
+        ))}
 
         <h3 class="about__stack-title mono">Toolkit</h3>
         <ul role="list" class="about__stack" data-reveal>
-          {about.stack.map((item) => <li>{item}</li>)}
+          {about.stack.map((item) => (
+            <li>{item}</li>
+          ))}
         </ul>
       </div>
     </div>

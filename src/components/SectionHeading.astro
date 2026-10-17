@@ -15,27 +15,27 @@ const { number, title, id, kicker, kickerCite } = Astro.props;
 ---
 
 <header class="sh">
-  <span class="sh__num" aria-hidden="true" data-reveal="wipe">{number}</span>
+  <span class="sh__num" aria-hidden="true" data-reveal="wipe">
+    {number}
+  </span>
   <div class="sh__text">
     <p class="sh__label mono" data-reveal>
       <span class="sh__dot" aria-hidden="true"></span>
       {number} / {title}
     </p>
-    <h2 id={id} class="sh__title" data-reveal style="--reveal-delay: 80ms">{title}</h2>
-    {
-      kicker && kickerCite && (
-        <p class="sh__kicker sh__kicker--quote" data-reveal style="--reveal-delay: 160ms">
-          &ldquo;{kicker}&rdquo; <span class="sh__cite mono">&mdash; {kickerCite}</span>
-        </p>
-      )
-    }
-    {
-      kicker && !kickerCite && (
-        <p class="sh__kicker" data-reveal style="--reveal-delay: 160ms">
-          {kicker}
-        </p>
-      )
-    }
+    <h2 id={id} class="sh__title" data-reveal style="--reveal-delay: 80ms">
+      {title}
+    </h2>
+    {kicker && kickerCite && (
+      <p class="sh__kicker sh__kicker--quote" data-reveal style="--reveal-delay: 160ms">
+        &ldquo;{kicker}&rdquo; <span class="sh__cite mono">&mdash; {kickerCite}</span>
+      </p>
+    )}
+    {kicker && !kickerCite && (
+      <p class="sh__kicker" data-reveal style="--reveal-delay: 160ms">
+        {kicker}
+      </p>
+    )}
   </div>
 </header>
 

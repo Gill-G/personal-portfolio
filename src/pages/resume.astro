@@ -44,10 +44,7 @@ if (pdfHash !== resume.pdfHash) {
 }
 ---
 
-<BaseLayout
-  title={`Résumé — ${site.name}`}
-  description={`Résumé of ${site.name}: ${site.role}.`}
->
+<BaseLayout title={`Résumé — ${site.name}`} description={`Résumé of ${site.name}: ${site.role}.`}>
   <section class="rp" aria-labelledby="resume-title">
     <div class="container">
       <header class="rp__head">
@@ -55,7 +52,9 @@ if (pdfHash !== resume.pdfHash) {
           <span class="rp__dot" aria-hidden="true"></span>
           Résumé
         </p>
-        <h1 id="resume-title" class="rp__title">{site.name}</h1>
+        <h1 id="resume-title" class="rp__title">
+          {site.name}
+        </h1>
 
         <div class="rp__row">
           <p class="rp__intro">
@@ -65,12 +64,7 @@ if (pdfHash !== resume.pdfHash) {
             <a class="rp__download mono" href={pdf} download>
               <!-- Download icon: an arrow dropping into a tray. Drawn with the
                    text color (currentColor), so it changes with the button. -->
-              <svg
-                class="rp__icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
+              <svg class="rp__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M12 3v12M7 10l5 5 5-5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path>
               </svg>
               Download PDF
@@ -84,31 +78,29 @@ if (pdfHash !== resume.pdfHash) {
       </header>
 
       <div class="rp__sheet">
-        {
-          pages.map((page, i) => (
-            <div class="rp__page">
-              <Image
-                src={page.src}
-                alt={`${site.name}'s résumé${pages.length > 1 ? `, page ${i + 1}` : ''}. Download the PDF for a text version.`}
-                widths={[480, 800, 1200, 1800, 2448]}
-                sizes="(min-width: 60rem) 56rem, calc(100vw - 2rem)"
-                quality={90}
-                loading={i === 0 ? 'eager' : 'lazy'}
+        {pages.map((page, i) => (
+          <div class="rp__page">
+            <Image
+              src={page.src}
+              alt={`${site.name}'s résumé${pages.length > 1 ? `, page ${i + 1}` : ''}. Download the PDF for a text version.`}
+              widths={[480, 800, 1200, 1800, 2448]}
+              sizes="(min-width: 60rem) 56rem, calc(100vw - 2rem)"
+              quality={90}
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+            {/* Clickable areas placed over the PDF's own links (positions in %). */}
+            {page.links.map((link) => (
+              <a
+                class="rp__link"
+                href={link.url}
+                target="_blank"
+                rel="noopener"
+                aria-label={link.url.replace(/^mailto:/, '')}
+                style={`left:${link.left}%; top:${link.top}%; width:${link.width}%; height:${link.height}%`}
               />
-              {/* Clickable areas placed over the PDF's own links (positions in %). */}
-              {page.links.map((link) => (
-                <a
-                  class="rp__link"
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label={link.url.replace(/^mailto:/, '')}
-                  style={`left:${link.left}%; top:${link.top}%; width:${link.width}%; height:${link.height}%`}
-                />
-              ))}
-            </div>
-          ))
-        }
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   </section>

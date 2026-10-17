@@ -60,22 +60,25 @@ const canonical = new URL(Astro.url.pathname.slice(basePath.length) || '/', site
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
-
     <!-- Vercel Web Analytics (enabled in the Vercel dashboard). Vercel serves the script
          itself, so there's no npm package. The first line queues events until it loads. -->
-    {
-      onVercel && (
-        <>
-          <script is:inline>
-            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          </script>
-          <script is:inline defer src="/_vercel/insights/script.js"></script>
-        </>
-      )
-    }
+    {onVercel && (
+      <>
+        <script is:inline>
+          window.va =
+            window.va ||
+            function () {
+              (window.vaq = window.vaq || []).push(arguments);
+            };
+        </script>
+        <script is:inline defer src="/_vercel/insights/script.js"></script>
+      </>
+    )}
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
     <ScrollProgress />
     <Header />
     <main id="main" tabindex="-1">

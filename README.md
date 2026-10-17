@@ -14,14 +14,14 @@ Personal portfolio of **Gurnoor Gill**, designed and built from scratch.
 
 ## Tech stack
 
-| Tool                                                  | Used for                                         |
-| ----------------------------------------------------- | ------------------------------------------------ |
-| [Astro 7](https://astro.build)                        | Static site framework (plain HTML output)        |
-| TypeScript (strict)                                   | Scripts and type-checked content                 |
-| Plain CSS + design tokens                             | All styling. No Tailwind or CSS-in-JS            |
-| [Lenis](https://github.com/darkroomengineering/lenis) | Smooth scrolling                                 |
-| [Vercel](https://vercel.com)                          | Main deploy, at gillg.vercel.app                 |
-| GitHub Actions + GitHub Pages                         | Backup deploy on every push to main              |
+| Tool                                                  | Used for                                  |
+| ----------------------------------------------------- | ----------------------------------------- |
+| [Astro 7](https://astro.build)                        | Static site framework (plain HTML output) |
+| TypeScript (strict)                                   | Scripts and type-checked content          |
+| Plain CSS + design tokens                             | All styling. No Tailwind or CSS-in-JS     |
+| [Lenis](https://github.com/darkroomengineering/lenis) | Smooth scrolling                          |
+| [Vercel](https://vercel.com)                          | Main deploy, at gillg.vercel.app          |
+| GitHub Actions + GitHub Pages                         | Backup deploy on every push to main       |
 
 ## Technical highlights
 

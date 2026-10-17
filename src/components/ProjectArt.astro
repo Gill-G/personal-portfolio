@@ -21,20 +21,18 @@ const { seed, logo } = Astro.props;
     <path class="art__ring" d={blobPath(seed + 7)}></path>
     {!logo && <path class="art__blob" d={blobPath(seed)} />}
   </svg>
-  {
-    logo && (
-      <span class="art__logo">
-        {/* Astro resizes the source PNG into small WebP files; the browser picks one. */}
-        <Image
-          src={logo}
-          alt=""
-          widths={[240, 360, 480, 720]}
-          sizes="(min-width: 56rem) 22rem, 70vw"
-          format="webp"
-        />
-      </span>
-    )
-  }
+  {logo && (
+    <span class="art__logo">
+      {/* Astro resizes the source PNG into small WebP files; the browser picks one. */}
+      <Image
+        src={logo}
+        alt=""
+        widths={[240, 360, 480, 720]}
+        sizes="(min-width: 56rem) 22rem, 70vw"
+        format="webp"
+      />
+    </span>
+  )}
 </div>
 
 <style>
@@ -48,7 +46,11 @@ const { seed, logo } = Astro.props;
     /* Blueprint grid: two sets of thin lines every 32px. */
     background-image:
       linear-gradient(var(--color-border) var(--border-width), transparent var(--border-width)),
-      linear-gradient(90deg, var(--color-border) var(--border-width), transparent var(--border-width));
+      linear-gradient(
+        90deg,
+        var(--color-border) var(--border-width),
+        transparent var(--border-width)
+      );
     background-size: var(--space-6) var(--space-6);
     background-position: center;
   }
@@ -58,7 +60,11 @@ const { seed, logo } = Astro.props;
     background-color: var(--art-screen-bg);
     background-image:
       linear-gradient(var(--art-screen-line) var(--border-width), transparent var(--border-width)),
-      linear-gradient(90deg, var(--art-screen-line) var(--border-width), transparent var(--border-width));
+      linear-gradient(
+        90deg,
+        var(--art-screen-line) var(--border-width),
+        transparent var(--border-width)
+      );
   }
 
   .art--screen .art__ring {

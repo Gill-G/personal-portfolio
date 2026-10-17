@@ -24,10 +24,13 @@ const builds = ['Transfer Value Predictor', 'Datadog Clone', 'Bubble Pop Game'];
     </div>
 
     <h1 id="hero-title" class="hero__name">
-      <span class="hero__line"><span class="hero__line-inner">{site.firstName}</span></span>
+      <span class="hero__line">
+        <span class="hero__line-inner">{site.firstName}</span>
+      </span>
       <span class="hero__line hero__line--offset">
         <span class="hero__line-inner">
-          {site.lastName}<span class="hero__block" aria-hidden="true"></span>
+          {site.lastName}
+          <span class="hero__block" aria-hidden="true"></span>
         </span>
       </span>
       <span class="visually-hidden">, {site.role}</span>
@@ -37,16 +40,14 @@ const builds = ['Transfer Value Predictor', 'Datadog Clone', 'Bubble Pop Game'];
       <div class="hero__builds">
         <span class="mono hero__builds-label">Builds</span>
         <ul role="list">
-          {
-            builds.map((item) => (
-              <li>
-                <span class="hero__arrow" aria-hidden="true">
-                  ▸
-                </span>
-                {item}
-              </li>
-            ))
-          }
+          {builds.map((item) => (
+            <li>
+              <span class="hero__arrow" aria-hidden="true">
+                ▸
+              </span>
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
 

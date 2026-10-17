@@ -44,23 +44,23 @@ const links = [
         <span aria-hidden="true">↗</span>
       </a>
       <button type="button" class="contact__copy mono" data-copy={site.email}>
-        <span data-copy-label aria-live="polite">Copy email</span>
+        <span data-copy-label aria-live="polite">
+          Copy email
+        </span>
       </button>
     </div>
 
     <ul role="list" class="contact__links" data-reveal style="--reveal-delay: 200ms">
-      {
-        links.map((link) => (
-          <li>
-            {/* Opens in a new tab, so visitors keep the portfolio open behind it. */}
-            <a href={link.href} class="mono" target="_blank" rel="noopener">
-              {link.label}
-              <span aria-hidden="true">↗</span>
-              <span class="visually-hidden"> (opens in a new tab)</span>
-            </a>
-          </li>
-        ))
-      }
+      {links.map((link) => (
+        <li>
+          {/* Opens in a new tab, so visitors keep the portfolio open behind it. */}
+          <a href={link.href} class="mono" target="_blank" rel="noopener">
+            {link.label}
+            <span aria-hidden="true">↗</span>
+            <span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        </li>
+      ))}
     </ul>
   </div>
 </section>

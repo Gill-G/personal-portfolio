@@ -45,25 +45,23 @@ interface Blob {
   ty: number;
 }
 
-const blobs: Blob[] = [...document.querySelectorAll<SVGSVGElement>('[data-blob]')].flatMap(
-  (el) => {
-    const path = el.querySelector('path');
-    if (!path) return [];
-    visibility.observe(el);
-    return [
-      {
-        el,
-        path,
-        seed: Number(el.dataset.seed ?? 0),
-        follow: el.hasAttribute('data-follow'),
-        x: 0,
-        y: 0,
-        tx: 0,
-        ty: 0,
-      },
-    ];
-  },
-);
+const blobs: Blob[] = [...document.querySelectorAll<SVGSVGElement>('[data-blob]')].flatMap((el) => {
+  const path = el.querySelector('path');
+  if (!path) return [];
+  visibility.observe(el);
+  return [
+    {
+      el,
+      path,
+      seed: Number(el.dataset.seed ?? 0),
+      follow: el.hasAttribute('data-follow'),
+      x: 0,
+      y: 0,
+      tx: 0,
+      ty: 0,
+    },
+  ];
+});
 
 // Only real mice get the cursor effect (touch screens have no hover position).
 if (window.matchMedia('(pointer: fine)').matches) {
