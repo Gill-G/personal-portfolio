@@ -260,7 +260,7 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
     position: absolute;
     left: 0;
     right: 0;
-    height: 2px;
+    height: var(--line-medium);
     background: currentColor;
     transition: transform var(--dur-base) var(--ease-out);
   }

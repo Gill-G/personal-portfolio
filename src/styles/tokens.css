@@ -92,7 +92,9 @@
   --radius-sm: 0.5rem;
   --radius-lg: 1rem;
   --radius-pill: 999px;
-  --border-width: 1px;
+  --border-width: 1px; /* hairlines */
+  --line-medium: 2px; /* accent rules, bullets, outlined text */
+  --line-bold: 3px; /* hover bars, underlines, the scroll progress bar */
   --focus-ring: 2px solid var(--color-focus);
 
   /* ---- Layers (z-index), lowest to highest ---- */

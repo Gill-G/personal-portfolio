@@ -104,7 +104,7 @@ const links = [
      and half the stroke, leaving a clean 1px outer edge. */
   .contact__outline {
     color: var(--color-bg);
-    -webkit-text-stroke: calc(var(--border-width) * 2) var(--color-text);
+    -webkit-text-stroke: var(--line-medium) var(--color-text);
     paint-order: stroke fill;
     letter-spacing: 0;
   }
@@ -149,8 +149,8 @@ const links = [
     overflow-wrap: anywhere;
     text-decoration: none;
     /* An accent underline that thickens on hover. */
-    background: linear-gradient(var(--color-accent), var(--color-accent)) 0 100% / 100% 3px
-      no-repeat;
+    background: linear-gradient(var(--color-accent), var(--color-accent)) 0 100% / 100%
+      var(--line-bold) no-repeat;
     transition:
       background-size var(--dur-base) var(--ease-out),
       color var(--dur-base) var(--ease-out);
