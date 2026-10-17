@@ -138,7 +138,7 @@ ol[role='list'] {
 }
 
 /*
- * Scroll reveals. reveal.ts adds .is-visible when an element scrolls into view.
+ * Scroll reveals. effects.ts adds .is-visible when an element scrolls into view.
  * Only hidden while JS is running (html.js), so content never stays invisible.
  */
 @media (prefers-reduced-motion: no-preference) {
