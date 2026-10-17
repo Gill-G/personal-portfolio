@@ -14,7 +14,7 @@ const links = [
 
 <section id="contact" class="contact" aria-labelledby="contact-title" tabindex="-1">
   <div class="contact__blob-wrap">
-    <Blob seed={4.2} class="contact__blob" />
+    <Blob seed={4.2} />
   </div>
 
   <div class="container contact__inner">
@@ -41,7 +41,7 @@ const links = [
     <div class="contact__email-row" data-reveal style="--reveal-delay: 100ms">
       <a href={`mailto:${site.email}`} class="contact__email">
         {site.email}
-        <span class="contact__arrow" aria-hidden="true">↗</span>
+        <span aria-hidden="true">↗</span>
       </a>
       <button type="button" class="contact__copy mono" data-copy={site.email}>
         <span data-copy-label aria-live="polite">Copy email</span>

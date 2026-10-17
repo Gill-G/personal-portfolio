@@ -8,14 +8,13 @@ import { blobPath } from '../scripts/blob-shape';
 interface Props {
   seed?: number;
   follow?: boolean;
-  class?: string;
 }
 
-const { seed = 1, follow = false, class: className } = Astro.props;
+const { seed = 1, follow = false } = Astro.props;
 ---
 
 <svg
-  class:list={['blob', className]}
+  class="blob"
   viewBox="0 0 200 200"
   aria-hidden="true"
   focusable="false"
