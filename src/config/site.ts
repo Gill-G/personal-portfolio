@@ -1,5 +1,4 @@
 // Everything personal about the site lives here, so components never hardcode it.
-// TODO: replace the placeholder values with your real details.
 
 export const site = {
   name: 'Gurnoor Gill',
@@ -13,7 +12,6 @@ export const site = {
     author: 'Epictetus',
     source: 'Discourses',
   },
-  location: 'City, Country',
   status: 'Open to internships',
   email: 'gillg.dev@gmail.com',
   // Shown in the Contact section, next to a pulsing dot.
