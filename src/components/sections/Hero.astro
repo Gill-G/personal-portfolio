@@ -18,7 +18,7 @@ const builds = ['Transfer Value Predictor', 'Datadog Clone', 'Bubble Pop Game'];
     <div class="hero__top">
       <p class="mono">[ Portfolio / {new Date().getFullYear()} ]</p>
       <p class="mono hero__status">
-        <span class="hero__pulse" aria-hidden="true"></span>
+        <span class="dot hero__pulse" aria-hidden="true"></span>
         {site.status}
       </p>
     </div>
@@ -137,12 +137,9 @@ const builds = ['Transfer Value Predictor', 'Datadog Clone', 'Bubble Pop Game'];
     color: var(--color-text);
   }
 
+  /* Anchors the expanding pulse ring below. */
   .hero__pulse {
     position: relative;
-    width: var(--space-2);
-    height: var(--space-2);
-    background: var(--color-accent-mark);
-    border-radius: var(--radius-pill);
   }
 
   @media (prefers-reduced-motion: no-preference) {
