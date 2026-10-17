@@ -17,7 +17,7 @@ export const lenis = prefersReducedMotion ? null : new Lenis({ autoRaf: true, le
  * Scrolls to a section, then moves keyboard focus there so Tab continues from it.
  * 'home' and 'top' both mean "the top of the page" ('top' works on every page).
  */
-export function scrollToSection(id: string) {
+function scrollToSection(id: string) {
   const toTop = id === 'home' || id === 'top';
   const target = document.getElementById(id) ?? (toTop ? document.getElementById('main') : null);
   if (!target) return;
