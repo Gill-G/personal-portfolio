@@ -10,11 +10,8 @@
   /* ---- Primitives (only referenced inside this file) ---- */
   --ink-950: #0c0c0e;
   --ink-900: #141417;
-  --ink-800: #1f1f23;
-  --ink-600: #3a3a40;
   --bone-50: #f4f1ea;
   --bone-100: #ece8df;
-  --bone-300: #cfc9bc;
   --stone-400: #9d988e; /* muted text on ink: 7.1:1 */
   --stone-600: #57534b; /* muted text on bone: 6.4:1 */
   --volt-400: #d4ff3a;
@@ -92,7 +89,6 @@
 
   /* ---- Shape ---- */
   --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
   --radius-lg: 1rem;
   --radius-pill: 999px;
   --border-width: 1px;
