@@ -22,7 +22,6 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     <div class="projects__grid">
       {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
     </div>
-
   </div>
 </section>
 
