@@ -82,7 +82,7 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
   .header {
     position: fixed;
     inset: 0 0 auto;
-    z-index: 50;
+    z-index: var(--z-header);
     transition:
       background-color var(--dur-base) var(--ease-out),
       border-color var(--dur-base) var(--ease-out),

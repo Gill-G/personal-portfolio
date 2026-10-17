@@ -45,11 +45,12 @@
 </script>
 
 <style>
-  /* Sits above the header (z-index 50), so it stays visible when the header hides. */
+  /* Sits above the header (see the z-index layers in tokens.css), so it stays visible
+     when the header hides. */
   .progress {
     position: fixed;
     inset: 0 0 auto;
-    z-index: 60;
+    z-index: var(--z-progress);
     height: calc(var(--border-width) * 3);
     pointer-events: none;
   }
