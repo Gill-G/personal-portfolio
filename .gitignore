@@ -15,7 +15,10 @@ pnpm-debug.log*
 
 # environment variables
 .env
-.env.production
+.env.*
+
+# Vercel CLI project link (created by `vercel link`)
+.vercel/
 
 # macOS-specific files
 .DS_Store
