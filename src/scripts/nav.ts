@@ -69,6 +69,8 @@ document.fonts?.ready.then(() => setActive(currentId));
 
 // Ignore scroll movements smaller than this, so tiny wobbles don't flicker it.
 const SCROLL_THRESHOLD = 8;
+// Once the page has scrolled more than this (px), the header gets its frosted backdrop.
+const BACKDROP_OFFSET = 8;
 let lastScrollY = window.scrollY;
 let pointerInTopZone = false;
 
@@ -91,7 +93,7 @@ function setHidden(hidden: boolean) {
 
 function onScroll() {
   const y = window.scrollY;
-  header?.toggleAttribute('data-scrolled', y > 8);
+  header?.toggleAttribute('data-scrolled', y > BACKDROP_OFFSET);
 
   const delta = y - lastScrollY;
   if (Math.abs(delta) < SCROLL_THRESHOLD) return;
