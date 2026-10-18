@@ -3,10 +3,14 @@
  * Home screen. Giant offset name, a volt "cursor" block, and the morphing blob
  * leaning toward the mouse. In dark mode the name inverts where it crosses the blob.
  */
+import { getCollection } from 'astro:content';
 import Blob from '../Blob.astro';
 import { site } from '../../config/site';
 
-const builds = ['Transfer Value Predictor', 'Datadog Clone', 'Bubble Pop Game'];
+// "Builds" lists the project titles, in the same order as the Projects section.
+const builds = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((project) => project.data.title);
 ---
 
 <section id="home" class="hero" aria-labelledby="hero-title" tabindex="-1">
