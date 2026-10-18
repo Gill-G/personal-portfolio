@@ -1,5 +1,6 @@
 ---
 import SectionHeading from '../SectionHeading.astro';
+import { sectionNumber } from '../../config/nav';
 import Blob from '../Blob.astro';
 import { site } from '../../config/site';
 import { url } from '../../utils/url';
@@ -19,7 +20,7 @@ const links = [
 
   <div class="container contact__inner">
     <SectionHeading
-      number="04"
+      number={sectionNumber('contact')}
       title="Contact"
       id="contact-title"
       kicker="Always open to chat 😁"

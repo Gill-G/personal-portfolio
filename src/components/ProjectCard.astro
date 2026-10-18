@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import ProjectArt from './ProjectArt.astro';
+import { twoDigits } from '../utils/format';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -17,7 +18,7 @@ const statusLabels = {
   concept: 'Concept',
 } as const;
 
-const number = String(index + 1).padStart(2, '0');
+const number = twoDigits(index + 1);
 // The card's main link: the live demo if there is one, otherwise the code.
 const primaryLink = demo ?? repo;
 ---

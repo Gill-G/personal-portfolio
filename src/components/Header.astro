@@ -9,8 +9,7 @@ import Logo from './Logo.astro';
 import { sections } from '../config/nav';
 import { site } from '../config/site';
 import { url } from '../utils/url';
-
-const number = (i: number) => String(i + 1).padStart(2, '0');
+import { twoDigits } from '../utils/format';
 
 // Links point at the home page's sections (e.g. /#about), so they also work from
 // other pages like /resume/. On the home page they still glide (smooth-scroll.ts).
@@ -32,7 +31,7 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
             <li>
               <a href={home(section.id)} class="tab" data-tab={section.id}>
                 <span class="tab__num" aria-hidden="true">
-                  {number(i)}
+                  {twoDigits(i + 1)}
                 </span>
                 {section.label}
               </a>
@@ -66,7 +65,7 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
       {sections.map((section, i) => (
         <li>
           <a href={home(section.id)} class="menu__link" data-tab={section.id}>
-            <span class="mono">{number(i)}</span>
+            <span class="mono">{twoDigits(i + 1)}</span>
             {section.label}
           </a>
         </li>

@@ -5,6 +5,7 @@
  */
 import { getCollection } from 'astro:content';
 import SectionHeading from '../SectionHeading.astro';
+import { sectionNumber } from '../../config/nav';
 import ProjectCard from '../ProjectCard.astro';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
@@ -13,7 +14,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 <section id="projects" class="projects" aria-labelledby="projects-title" tabindex="-1">
   <div class="container">
     <SectionHeading
-      number="03"
+      number={sectionNumber('projects')}
       title="Projects"
       id="projects-title"
       kicker="What I've built so far. The best is still ahead."

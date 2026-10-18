@@ -1,6 +1,7 @@
 // The sections of the one-page site, in scroll order. Each `id` must match the
 // `id` on its <section>. Add an entry here when you add a new section.
 // "Home" isn't listed: the GG logo in the top left takes you back there.
+import { twoDigits } from '../utils/format';
 
 export const sections = [
   { id: 'about', label: 'About' },
@@ -8,3 +9,8 @@ export const sections = [
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
 ] as const;
+
+/** A section's number from its place in the list above: sectionNumber('about') -> '01'. */
+export function sectionNumber(id: (typeof sections)[number]['id']): string {
+  return twoDigits(sections.findIndex((section) => section.id === id) + 1);
+}

@@ -1,12 +1,13 @@
 ---
 import SectionHeading from '../SectionHeading.astro';
+import { sectionNumber } from '../../config/nav';
 import { education } from '../../data/education';
 ---
 
 <section id="education" class="education" aria-labelledby="education-title" tabindex="-1">
   <div class="container">
     <SectionHeading
-      number="02"
+      number={sectionNumber('education')}
       title="Education"
       id="education-title"
       kicker="I have no special talents. I am only passionately curious."
