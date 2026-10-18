@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { site } from './src/config/site.ts';
 
 const isVercel = Boolean(process.env.VERCEL);
 
@@ -7,12 +8,10 @@ const isVercel = Boolean(process.env.VERCEL);
 export default defineConfig({
   // The site is deployed twice from this repo. Vercel sets VERCEL=1 during its builds and
   // serves the site from the domain root; GitHub Pages serves it from a sub-path
-  // (gill-g.github.io/personal-portfolio/). `site` is used for canonical links; `base` is
+  // (gill-g.github.io/personal-portfolio/). `site` is the main address on both; `base` is
   // prefixed onto Astro's own CSS/JS automatically and onto /public files via url()
   // (src/utils/url.ts). In-page links like #about don't need it.
-  site: isVercel
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'localhost:4321'}`
-    : 'https://gill-g.github.io',
+  site: site.url,
   base: isVercel ? '/' : '/personal-portfolio',
 
   // Plain static HTML output: deployable to GitHub Pages, Netlify, Vercel or S3.

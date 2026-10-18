@@ -81,7 +81,7 @@ The same code deploys to two places:
 
 - **Vercel (main):** builds on every push and serves the site from the domain root at
   https://gillg.vercel.app/. `astro.config.mjs` detects Vercel's build environment
-  (`VERCEL`) and switches `site` and `base` to match.
+  (`VERCEL`) and switches `base` to match.
 - **GitHub Pages (backup):** every push to `main` runs `.github/workflows/deploy.yml`,
   which publishes a copy at the `/personal-portfolio` sub-path. Its canonical links point
   to the Vercel address, so search engines treat Vercel as the real site.
