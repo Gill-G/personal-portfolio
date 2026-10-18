@@ -3,46 +3,13 @@
  * Scroll progress bar: a thin accent line across the very top of the window that
  * fills from left to right as you scroll down the page. Rendered once in
  * BaseLayout, so every page gets it. Decorative, so hidden from screen readers.
+ * Behaviour lives in src/scripts/scroll-progress.ts.
  */
 ---
 
 <div class="progress" aria-hidden="true">
   <div class="progress__bar" data-scroll-progress></div>
 </div>
-
-<script>
-  const bar = document.querySelector<HTMLElement>('[data-scroll-progress]');
-
-  // How far down the page you are, from 0 (top) to 1 (bottom).
-  function update() {
-    if (!bar) return;
-    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = scrollable > 0 ? Math.min(Math.max(window.scrollY / scrollable, 0), 1) : 0;
-    // scaleX stretches the full-width bar from the left; cheaper than changing its width.
-    bar.style.transform = `scaleX(${progress})`;
-  }
-
-  // Update at most once per frame while scrolling (Lenis scrolls the window too,
-  // so its smooth scrolling drives the bar just as smoothly).
-  let queued = false;
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(() => {
-        queued = false;
-        update();
-      });
-    },
-    { passive: true },
-  );
-
-  // The page's length can change (window resize, images loading), so re-measure.
-  window.addEventListener('resize', update);
-  new ResizeObserver(update).observe(document.body);
-  update();
-</script>
 
 <style>
   /* Sits above the header (see the z-index layers in tokens.css), so it stays visible
