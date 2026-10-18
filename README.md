@@ -49,11 +49,13 @@ npm install      # install dependencies
 npm run dev      # start the dev server at http://localhost:4321/personal-portfolio/
 ```
 
-| Command           | What it does                                      |
-| ----------------- | ------------------------------------------------- |
-| `npm run dev`     | Start the local dev server                        |
-| `npm run build`   | Type-check (`astro check`), then build to `dist/` |
-| `npm run preview` | Serve the built `dist/` folder locally            |
+| Command                | What it does                                      |
+| ---------------------- | ------------------------------------------------- |
+| `npm run dev`          | Start the local dev server                        |
+| `npm run build`        | Type-check (`astro check`), then build to `dist/` |
+| `npm run preview`      | Serve the built `dist/` folder locally            |
+| `npm run format`       | Format every file with Prettier                   |
+| `npm run format:check` | Check formatting without changing any files       |
 
 ## Project structure
 
@@ -63,10 +65,12 @@ src/
   config/            Site-wide details and navigation
   data/              About and Education content
   content/projects/  One Markdown file per project
+  assets/            Project logos and the pre-rendered résumé image
   components/        Page sections and reusable building blocks
   layouts/           The page shell
   pages/             Routes: the one-page home and the résumé page
   scripts/           Browser behaviour: scrolling, navigation, animation
+  utils/             Small shared helpers (file URLs, number formatting)
   styles/            Design tokens and global styles
 .github/workflows/   Build and deploy pipeline
 ```
