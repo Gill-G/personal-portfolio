@@ -188,10 +188,7 @@ const onResumePage = Astro.url.pathname.replace(/\/$/, '') === resumePage.replac
     color: var(--color-text);
   }
 
-  .tab[aria-current] {
-    color: var(--color-on-accent);
-  }
-
+  .tab[aria-current],
   .tab[aria-current] .tab__num {
     color: var(--color-on-accent);
   }
