@@ -55,9 +55,17 @@ const canonical = new URL(Astro.url.pathname.slice(basePath.length) || '/', site
     />
 
     <!-- Runs before paint: marks that JS is on, so reveal animations can hide content
-         without ever leaving it hidden for visitors who have JS disabled. -->
+         without ever leaving it hidden for visitors who have JS disabled. It also applies
+         a theme picked with the header toggle (theme.ts), so the page never flashes the
+         wrong theme. With no saved choice, the OS setting decides (tokens.css). -->
     <script is:inline>
       document.documentElement.classList.add('js');
+      try {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // Storage can be blocked (private mode, strict settings): just follow the OS.
+      }
     </script>
     <!-- Vercel Web Analytics (enabled in the Vercel dashboard). Vercel serves the script
          itself, so there's no npm package. The first line queues events until it loads. -->

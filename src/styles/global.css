@@ -16,6 +16,16 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* A theme picked with the header toggle also sets the browser's own colours
+   (scrollbars, form controls) to match. */
+html[data-theme='light'] {
+  color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html:not(.lenis) {
     scroll-behavior: smooth;
