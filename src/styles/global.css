@@ -26,6 +26,14 @@ html[data-theme='dark'] {
   color-scheme: dark;
 }
 
+/* Theme switch (theme.ts): drop the browser's default cross-fade so the new theme
+   can grow out of the toggle as a circle instead. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html:not(.lenis) {
     scroll-behavior: smooth;
