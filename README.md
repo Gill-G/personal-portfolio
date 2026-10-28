@@ -8,7 +8,7 @@ Personal portfolio of **Gurnoor Gill**, designed and built from scratch.
 
 - One scrolling page (Home, About, Education, Projects, Contact) with tabs that track your position
 - Smooth scrolling and scroll-triggered animation
-- Dark and light themes that follow your system setting
+- Dark and light themes that follow your system setting, with a toggle that remembers your choice
 - Keyboard accessible, WCAG AA contrast, and reduced-motion support
 - Mobile menu and a résumé button in the header
 
@@ -92,7 +92,6 @@ the right base path for either deploy.
 ## Roadmap
 
 - [ ] Project detail pages generated from each project's Markdown
-- [ ] Light/dark theme toggle
 
 ## Contact
 
